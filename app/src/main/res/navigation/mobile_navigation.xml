@@ -9,12 +9,32 @@
         android:id="@+id/navigation_home"
         android:name="nit.school.lifeloom.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_activityTrackerFragment"
+            app:destination="@id/activityTrackerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="nit.school.lifeloom.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/addingActivityFragment"
+        android:name="nit.school.lifeloom.ui.adding.AddingActivityFragment"
+        android:label="AddingActivityFragment" >
+        <action
+            android:id="@+id/action_addingActivityFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityTrackerFragment"
+        android:name="nit.school.lifeloom.ui.tracking.ActivityTrackerFragment"
+        android:label="ActivityTrackerFragment" >
+        <argument
+            android:name="activityName"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

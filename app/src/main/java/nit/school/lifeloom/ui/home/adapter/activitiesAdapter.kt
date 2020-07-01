@@ -1,49 +1,20 @@
 package nit.school.lifeloom.ui.home.adapter
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import nit.school.lifeloom.R
+import nit.school.lifeloom.logic.showToast
 import nit.school.lifeloom.singleton.Activity
 
-/*
-//Adapter za listu korisnika unutar Highscore Fragmenta
-class ActivitiesAdapter(private val activitesList: List<Activity>) : Adapter<ActivitiesAdapter.ActivitiesAdapterHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivitiesAdapterHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_list_item,
-        parent, false)
-        return ActivitiesAdapterHolder(itemView)
-    }
+class ActivitiesAdapter(private val activitesList: List<Activity>, private val context: Context, private val navController: NavController) : BaseAdapter(){
 
-    override fun onBindViewHolder(holder: ActivitiesAdapterHolder, position: Int) {
-        val currentItem = activitesList[position]
-
-        holder.name.text = currentItem.name
-    }
-
-    class ActivitiesAdapterHolder(itemView: View) : GridView.ViewHolder(itemView) {
-        val name: TextView = itemView.activityName
-    }
-
-    override fun getItemCount(): Int {
-        return activitesList.size
-    }
-}*/
-
-class ActivitiesAdapter(private val activitesList: List<Activity>) : BaseAdapter(){
-
-    /*
-        **** reference source developer.android.com ***
-
-        View getView (int position, View convertView, ViewGroup parent)
-            Get a View that displays the data at the specified position in the data set. You can
-            either create a View manually or inflate it from an XML layout file. When the View
-            is inflated, the parent View (GridView, ListView...) will apply default layout
-            parameters unless you use inflate(int, android.view.ViewGroup, boolean)
-            to specify a root view and to prevent attachment to the root.
-    */
     override fun getView(position:Int, convertView: View?, parent: ViewGroup?):View{
         // Inflate the custom view
         val inflater = parent?.context?.
@@ -53,11 +24,16 @@ class ActivitiesAdapter(private val activitesList: List<Activity>) : BaseAdapter
         // Get the custom view widgets reference
         val name = view.findViewById<TextView>(R.id.activityName)
         val info = view.findViewById<TextView>(R.id.activityInfo)
+        val show = view.findViewById<ImageView>(R.id.showActivity_iv)
         //val card = view.findViewById<CardView>(R.id.card_view)
 
         // Display color name on text view
         name.text = activitesList[position].name
         info.text = activitesList[position].description
+        show.setOnClickListener { view ->
+            val bundle = bundleOf("activityName" to name.text.toString())
+            navController.navigate(R.id.activityTrackerFragment, bundle)
+        }
 
         // Set background color for card view
         //card.setCardBackgroundColor(list[position].second)

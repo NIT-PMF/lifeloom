@@ -2,19 +2,23 @@ package nit.school.lifeloom
 
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import nit.school.lifeloom.databinding.ActivityMainBinding
-import androidx.databinding.DataBindingUtil.setContentView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import nit.school.lifeloom.databinding.ActivityMainBinding
 import nit.school.lifeloom.logic.showToast
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
@@ -47,7 +51,22 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return (Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
+                || super.onSupportNavigateUp())
+    }
+
     fun addNewActivityButton(view: View) {
-        showToast(applicationContext, "Ovdje dodati novu aktivnost koju user napravi")
+        navController.navigate(R.id.addingActivityFragment)
+
+
+        /* Moze i ovo, ali iznad metoda je puno bolja jer ne drzi u stacku kad se promijeni
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, AddingActivityFragment())
+           .commitAllowingStateLoss()
+         */
+    }
+
+    fun deleteActivity(view: View) {
+        showToast(applicationContext, "OVDJE SE BRISE, NEKAKO U FRAGMENTU IMPLEMENTIRATI")
     }
 }

@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
+import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.findNavController
+import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.R
 import nit.school.lifeloom.databinding.FragmentHomeBinding
 import nit.school.lifeloom.singleton.Activity
@@ -33,10 +32,14 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
+        //Dodavanje + ukoliko se vrati sa AddingActivityFragment
+        val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
+        buttonAdd.visibility = View.VISIBLE
+
         //Postavljanje liste
         val activities = activitiesSingleton
         val activitiesList = binding.activitiesView
-        activitiesList.adapter =  ActivitiesAdapter((activities.getActivities().toList() as List<Activity>))
+        activitiesList.adapter =  ActivitiesAdapter((activities.getActivities().toList() as List<Activity>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
 
         return binding.root
     }
