@@ -5,15 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Spinner
+import android.widget.*
 import androidx.databinding.DataBindingUtil.inflate
 import nit.school.lifeloom.MainActivity
 
 import nit.school.lifeloom.R
 import nit.school.lifeloom.databinding.FragmentAddingActivityBinding
+import nit.school.lifeloom.logic.showToast
 
 class AddingActivityFragment : Fragment() {
 
@@ -43,6 +41,17 @@ class AddingActivityFragment : Fragment() {
             spinner.adapter = adapter
         }
 
+        //Kad klikne na checkbox pokazati dodatne konfiguracije
+        binding.addInfoCb.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                binding.unitEt.visibility = View.VISIBLE
+                binding.descriptionEt.visibility = View.VISIBLE
+            } else {
+                binding.unitEt.visibility = View.GONE
+                binding.descriptionEt.visibility = View.GONE
+            }
+
+        }
 
         return binding.root
     }
