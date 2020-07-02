@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/navigation_home"
@@ -10,5 +11,17 @@
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_dashboard" />
+    <item
+        android:id="@+id/navigation_incremental"
+        android:icon="@drawable/ic_plus_1"
+        android:title="Incremental" />
+    <item
+        android:id="@+id/navigation_quantity"
+        android:icon="@drawable/ic_gradient"
+        android:title="Quantity" />
+    <item
+        android:id="@+id/navigation_time"
+        android:icon="@drawable/ic_access_time"
+        android:title="Time" />
 
 </menu>

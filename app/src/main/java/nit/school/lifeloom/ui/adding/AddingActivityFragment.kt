@@ -44,11 +44,28 @@ class AddingActivityFragment : Fragment() {
         //Kad klikne na checkbox pokazati dodatne konfiguracije
         binding.addInfoCb.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                val vrijednost = binding.noActivitySpinner.selectedItem.toString()
+                binding.unitEt.hint = when (vrijednost) {
+                    "Time Period" -> "Choose custom Time Period Unit"
+                    "Incremental" -> "Choose custom Incremental Unit"
+                    "Quantity" -> "Choose custom Quantity Unit"
+                    else -> "Choose a custom unit"
+                }
                 binding.unitEt.visibility = View.VISIBLE
                 binding.descriptionEt.visibility = View.VISIBLE
             } else {
                 binding.unitEt.visibility = View.GONE
                 binding.descriptionEt.visibility = View.GONE
+            }
+        }
+        //Ukoliko promijeni aktivnost kategorije, vratiti additional info na unckecked
+        binding.noActivitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                binding.addInfoCb.isChecked = false
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                binding.addInfoCb.isChecked = false
             }
 
         }
