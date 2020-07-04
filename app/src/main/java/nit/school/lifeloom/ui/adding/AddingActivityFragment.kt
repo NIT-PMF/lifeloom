@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil.inflate
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import nit.school.lifeloom.MainActivity
 
 import nit.school.lifeloom.R
 import nit.school.lifeloom.databinding.FragmentAddingActivityBinding
 import nit.school.lifeloom.logic.showToast
+import nit.school.lifeloom.singleton.Activity
+import nit.school.lifeloom.singleton.activitiesSingleton
+import nit.school.lifeloom.ui.adding.adapter.StandardActivitiesAdapter
+import nit.school.lifeloom.ui.home.adapter.ActivitiesAdapter
 
 class AddingActivityFragment : Fragment() {
 
@@ -27,6 +33,28 @@ class AddingActivityFragment : Fragment() {
         //Brisanje + dugma
         val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
         buttonAdd.visibility = View.INVISIBLE
+
+        //Provjera switcha i mijenjanje zavisno od izabranog
+        val category_switch: Switch = binding.customDefaultSwitch
+
+        category_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.defaultCategoryLayout.visibility = View.VISIBLE
+                binding.customCategoryLayout.visibility = View.GONE
+            }
+            else {
+                binding.defaultCategoryLayout.visibility = View.GONE
+                binding.customCategoryLayout.visibility = View.VISIBLE
+            }
+        }
+
+        //Postavljanje default liste
+        val activities = activitiesSingleton //Promijeniti kad budemo stavljali
+        val recyclerView = binding.standardCategoryRecyclerview
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = StandardActivitiesAdapter((activities.getActivities().toList() as List<Activity>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+
+
 
         //Dodavanje stvari u spinner
         spinner = binding.noActivitySpinner

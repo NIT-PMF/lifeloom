@@ -2,104 +2,161 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.adding.AddingActivityFragment">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/design_default_color_background"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        tools:context=".ui.adding.AddingActivityFragment">
 
-        <TextView
-            android:id="@+id/addActivity_tv"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0.5"
-            android:text="Add New Category"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_background"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/activity_name_pt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:ems="10"
-            android:hint="Type Category Name"
-            android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/addActivity_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:text="Add New Category"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/chooseActivity_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="Choose Category Type"
-            android:textAlignment="center" />
+            <RelativeLayout
+                android:id="@+id/switch_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center">
 
-        <Spinner
-            android:id="@+id/noActivity_spinner"
-            android:layout_width="match_parent"
-            android:layout_weight="0"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary" />
+                <Switch
+                    android:id="@+id/custom_default_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="8sp"
+                    android:padding="10dp"
+                    android:switchPadding="10dp"
+                    android:text="Custom or Default"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textOff="DEFAULT"
+                    android:textOn="CUSTOM"
+                    android:visibility="visible" />
 
-        <CheckBox
-            android:id="@+id/addInfo_cb"
-            android:layout_weight="0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Additional Information" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/unit_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:ems="10"
-            android:hint="Type the unit"
-            android:inputType="textPersonName"
-            android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/custom_category_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:visibility="visible">
 
-        <EditText
-            android:id="@+id/description_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:ems="10"
-            android:hint="Category Description"
-            android:inputType="textPersonName"
-            android:visibility="gone" />
+                <EditText
+                    android:id="@+id/activity_name_pt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:hint="Type Category Name"
+                    android:inputType="textPersonName" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
 
-        <Button
-            android:id="@+id/add_activity_btn"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0"
-            android:text="Add Activity"
-            android:textAlignment="center" />
+                <TextView
+                    android:id="@+id/chooseActivity_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Choose Category Type"
+                    android:textAlignment="center" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
+                <Spinner
+                    android:id="@+id/noActivity_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary" />
 
-    </LinearLayout>
-</FrameLayout>
+                <CheckBox
+                    android:id="@+id/addInfo_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Additional Information" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <EditText
+                    android:id="@+id/unit_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:hint="Type the unit"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/description_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:hint="Category Description"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/add_activity_btn"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0"
+                    android:text="Add Activity"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/default_category_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/standard_category_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/design_default_color_secondary_variant"
+                    android:padding="10dp"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 </layout>
