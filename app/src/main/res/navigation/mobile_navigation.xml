@@ -36,5 +36,20 @@
             android:name="activityName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_incremental"
+        android:name="nit.school.lifeloom.ui.list_categories.IncrementalFragment"
+        android:label="fragment_incremental_list"
+        tools:layout="@layout/fragment_incremental_list" />
+    <fragment
+        android:id="@+id/navigation_quantity"
+        android:name="nit.school.lifeloom.ui.list_categories.QuantityFragment"
+        android:label="fragment_quantity_list"
+        tools:layout="@layout/fragment_quantity_list" />
+    <fragment
+        android:id="@+id/navigation_time"
+        android:name="nit.school.lifeloom.ui.list_categories.TimeFragment"
+        android:label="fragment_time_list"
+        tools:layout="@layout/fragment_time_list" />
 
 </navigation>
