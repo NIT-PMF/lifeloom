@@ -1,6 +1,6 @@
 package nit.school.lifeloom.ui.home.adapter
 import android.content.Context
-import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +10,9 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import nit.school.lifeloom.R
-import nit.school.lifeloom.logic.showToast
-import nit.school.lifeloom.singleton.Activity
+import nit.school.lifeloom.singleton.TimeCategory
 
-class ActivitiesAdapter(private val activitesList: List<Activity>, private val context: Context, private val navController: NavController) : BaseAdapter(){
+class ActivitiesAdapter(private val activitesList: List<TimeCategory>, private val context: Context, private val navController: NavController) : BaseAdapter(){
 
     override fun getView(position:Int, convertView: View?, parent: ViewGroup?):View{
         // Inflate the custom view
@@ -28,10 +27,30 @@ class ActivitiesAdapter(private val activitesList: List<Activity>, private val c
         //val card = view.findViewById<CardView>(R.id.card_view)
 
         // Display color name on text view
+
         name.text = activitesList[position].name
         info.text = activitesList[position].description
+
+
+        Log.i("string", activitesList[position].date.time.getTime().toString())
+        var listDates:String = ""
+        var listValues:String = ""
+
+        for(element in activitesList){
+            if(element.name == activitesList[position].name){
+                listDates += listDates + element.date.time.getTime().toString() + ','
+                listValues += listValues + element.value + ','
+            }
+        }
+
         show.setOnClickListener { view ->
-            val bundle = bundleOf("activityName" to name.text.toString())
+            val bundle = bundleOf("activityName" to name.text.toString(),
+                    Pair("state", "time"),
+                    Pair("dateInSeconds", listDates),
+                    Pair("id", activitesList[position].id.toString()),
+                    Pair("properties", activitesList[position].properties.toString()),
+                    Pair("value", listValues),
+                    Pair("description", activitesList[position].description))
             navController.navigate(R.id.activityTrackerFragment, bundle)
         }
 

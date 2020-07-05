@@ -12,9 +12,11 @@ import androidx.navigation.findNavController
 import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.R
 import nit.school.lifeloom.databinding.FragmentHomeBinding
-import nit.school.lifeloom.singleton.Activity
-import nit.school.lifeloom.singleton.activitiesSingleton
+import nit.school.lifeloom.singleton.*
 import nit.school.lifeloom.ui.home.adapter.ActivitiesAdapter
+import nit.school.lifeloom.ui.home.adapter.IncrementAdapter
+import nit.school.lifeloom.ui.home.adapter.QuantityAdapter
+import java.sql.Time
 
 class HomeFragment : Fragment() {
 
@@ -37,9 +39,23 @@ class HomeFragment : Fragment() {
         buttonAdd.visibility = View.VISIBLE
 
         //Postavljanje liste
-        val activities = activitiesSingleton
-        val activitiesList = binding.activitiesView
-        activitiesList.adapter =  ActivitiesAdapter((activities.getActivities().toList() as List<Activity>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        val quantity = quantitySingleton
+        val timePeriod = timePeriodSingleton
+        val increment = incrementSingleton
+
+        val quantityList = binding.activitiesView
+        val incremenList = binding.incremnetView
+        val timePeriodList = binding.timePeriodView
+
+
+        quantityList.adapter =  QuantityAdapter((quantity.getActivities().toList() as List<QuantityCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        incremenList.adapter =  IncrementAdapter((increment.getActivities().toList() as List<IncrementCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        timePeriodList.adapter = ActivitiesAdapter((timePeriod.getActivities().toList() as List<TimeCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+
+
+
+
+
 
         return binding.root
     }

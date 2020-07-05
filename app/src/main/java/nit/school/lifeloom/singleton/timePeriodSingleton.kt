@@ -2,6 +2,7 @@ package nit.school.lifeloom.singleton
 
 import androidx.lifecycle.LiveData
 import java.util.*
+import kotlin.math.abs
 
 /** Sadrzi podatke o aktivnostima **/
 object timePeriodSingleton {
@@ -17,7 +18,8 @@ object timePeriodSingleton {
                 Calendar.getInstance(),
                 listOf(null),
                 Calendar.getInstance(),
-                Calendar.getInstance()
+                Calendar.getInstance(),
+                    10001
 
             ))
         activityList.add(
@@ -28,7 +30,8 @@ object timePeriodSingleton {
                 Calendar.getInstance(),
                 listOf(null),
                 Calendar.getInstance(),
-                Calendar.getInstance()
+                Calendar.getInstance(),
+                    120000
             ))
     }
 
@@ -51,7 +54,29 @@ object timePeriodSingleton {
     fun addActivity(IncrementCategory: TimeCategory) {
         activityList.add(IncrementCategory)
     }
+    //Vraca indes za update u suprotnom -1
+    fun updatePosition(name:String): Int {
+        for (i in 0..activityList.size){
+            if(activityList[i]?.endTime == activityList[i]?.startTime
+                    && activityList[i]!!.name == name){
+                return i
+            }
+        }
+        return -1
+    }
+
+    fun updatePositionValue(position:Int, date: Calendar){
+        activityList[position]?.endTime = date
+        activityList[position]?.value = (date.time.getTime() -activityList[position]!!.startTime.time.getTime()).toInt()
+    }
+
+
+    fun getActivityByPosition(position: Int): TimeCategory? {
+        return activityList[position]
+    }
+
+
 
 }
 
-data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, val startTime: Calendar, val endTime: Calendar)
+data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, val startTime: Calendar, var endTime: Calendar, var value:Int)
