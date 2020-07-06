@@ -1,5 +1,6 @@
 package nit.school.lifeloom.ui.tracking
 
+import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import nit.school.lifeloom.singleton.*
 import java.util.*
@@ -10,6 +11,9 @@ class ActivityTrackerViewModel(name: String, state: String) : ViewModel(){
 
     var value: Int
     var name = name
+    var running = false
+    var baseTime:Long = 0
+
     init{
         if(state == "increment") {
             val position = incrementSingleton.updatePosition(Calendar.getInstance(), name)
@@ -47,7 +51,8 @@ class ActivityTrackerViewModel(name: String, state: String) : ViewModel(){
         }
     }
 
-    fun addTimeStart( id:Number, name:String, description:String){
+    fun addTimeStart( id:Number, name:String, description:String, time:Long){
+        baseTime = time
         val date = Calendar.getInstance()
         timePeriodSingleton.addActivity(TimeCategory(id, name, description, Calendar.getInstance(), listOf(), date, date, 0))
     }

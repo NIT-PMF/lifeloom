@@ -1,6 +1,7 @@
 package nit.school.lifeloom.ui.tracking
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -104,8 +105,16 @@ class ActivityTrackerFragment : Fragment() {
 
             binding.timeDescription.text = description
 
+            if(viewModel.running){
+                binding.timeEnd.visibility = View.VISIBLE
+                binding.timeBegin.visibility = View.GONE
+                var pauseTime = SystemClock.elapsedRealtime() - viewModel.baseTime
+                binding.simpleChronometer.base = SystemClock.elapsedRealtime() - pauseTime
+                binding.simpleChronometer.start()
+            }
             binding.timeBegin.setOnClickListener{startTimer(id, activityName, description)}
             binding.timeEnd.setOnClickListener{endTimer()}
+
         }
 
 
@@ -114,18 +123,29 @@ class ActivityTrackerFragment : Fragment() {
 
     private fun endTimer() {
         viewModel.addTimeEnd()
+        viewModel.running = false
+
         binding.timeStart.text = "Odbrojavanje nije pocelo"
         binding.timeBegin.visibility = View.VISIBLE
         binding.timeEnd.visibility = View.GONE
 
+        binding.simpleChronometer.stop()
+        binding.simpleChronometer.base = SystemClock.elapsedRealtime()
 
     }
 
     private fun startTimer(id: String, activityName: String, description: String) {
-        viewModel.addTimeStart(id.toInt(), activityName, description)
+
         binding.timeStart.text = "Odbrojavanje je pocelo"
         binding.timeBegin.visibility = View.GONE
         binding.timeEnd.visibility = View.VISIBLE
+
+        binding.simpleChronometer.base = SystemClock.elapsedRealtime()
+        binding.simpleChronometer.start()
+
+        viewModel.running = true
+        viewModel.addTimeStart(id.toInt(), activityName, description, binding.simpleChronometer.base)
+
     }
 
 

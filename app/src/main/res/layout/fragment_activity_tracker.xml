@@ -54,6 +54,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quantity_layout">
 
+
             <TextView
                 android:id="@+id/time_description"
                 android:layout_width="match_parent"
@@ -62,9 +63,14 @@
 
             <TextView
                 android:id="@+id/time_start"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Odbrojavanje nije pocelo" />
+
+            <Chronometer
+                android:id="@+id/simpleChronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/time_begin"
