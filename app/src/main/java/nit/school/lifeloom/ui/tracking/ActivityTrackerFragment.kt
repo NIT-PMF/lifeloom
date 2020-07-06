@@ -9,11 +9,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.R
 import nit.school.lifeloom.databinding.FragmentActivityTrackerBinding
 import nit.school.lifeloom.logic.showToast
+import nit.school.lifeloom.singleton.*
+import nit.school.lifeloom.ui.list_categories.adapter.InformationAdapter
 import java.lang.Double.parseDouble
 import java.util.*
 import kotlin.text.toInt as toInt
@@ -42,7 +47,39 @@ class ActivityTrackerFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ActivityTrackerViewModel::class.java)
 
+        //Postavljanje recyclerview-a na kategoriju
+        val incrementList = incrementSingleton.getActivities().toList().filter { it?.name == activityName }.take(10) //uzima listu filtrira sa istim imenom i uzima prvih 10
+        val quantityList = quantitySingleton.getActivities().toList().filter { it?.name == activityName }.take(10) //uzima listu filtrira sa istim imenom i uzima prvih 10
+        val timeList = timePeriodSingleton.getActivities().toList().filter { it?.name == activityName }.take(10) //uzima listu filtrira sa istim imenom i uzima prvih 10
 
+        val listRecyclerView = binding.previousCategoriesList
+        listRecyclerView.layoutManager = LinearLayoutManager(context)
+        listRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
+
+        if (incrementList.size > 0) {
+            listRecyclerView.adapter = InformationAdapter(
+                (incrementList as List<IncrementCategory>), listOf(),listOf(),
+                requireContext(),
+                requireActivity().findNavController(R.id.nav_host_fragment)
+            )
+        } else if (quantityList.size > 0) {
+            listRecyclerView.adapter = InformationAdapter(
+                listOf(), quantityList as List<QuantityCategory>,listOf(),
+                requireContext(),
+                requireActivity().findNavController(R.id.nav_host_fragment)
+            )
+        } else {
+            listRecyclerView.adapter = InformationAdapter(
+                listOf(), listOf(), timeList as List<TimeCategory>,
+                requireContext(),
+                requireActivity().findNavController(R.id.nav_host_fragment)
+            )
+        }
 
 
         //Ovdje vracam naziv aktivnosti, ako zelis jos vratiti provjeri adapter i morat ces dodatni argument u navigation dodati
@@ -67,12 +104,12 @@ class ActivityTrackerFragment : Fragment() {
             }
         }
 
-        Log.i("messeage", valueList.toString())
+        Log.i("message", valueList.toString())
 
         binding.activityNameTv.text = activityName
         (activity as MainActivity).supportActionBar?.title = activityName
 
-        if(state == "increment") {
+        if (state == "increment") {
             binding.incrementLayout.visibility = View.VISIBLE
             binding.quantityLayout.visibility = View.GONE
             binding.timeLayout.visibility = View.GONE
@@ -108,7 +145,7 @@ class ActivityTrackerFragment : Fragment() {
             if(viewModel.running){
                 binding.timeEnd.visibility = View.VISIBLE
                 binding.timeBegin.visibility = View.GONE
-                var pauseTime = SystemClock.elapsedRealtime() - viewModel.baseTime
+                val pauseTime = SystemClock.elapsedRealtime() - viewModel.baseTime
                 binding.simpleChronometer.base = SystemClock.elapsedRealtime() - pauseTime
                 binding.simpleChronometer.start()
             }
@@ -125,7 +162,7 @@ class ActivityTrackerFragment : Fragment() {
         viewModel.addTimeEnd()
         viewModel.running = false
 
-        binding.timeStart.text = "Odbrojavanje nije pocelo"
+        binding.timeStart.text = "Timer has not started"
         binding.timeBegin.visibility = View.VISIBLE
         binding.timeEnd.visibility = View.GONE
 
@@ -136,7 +173,7 @@ class ActivityTrackerFragment : Fragment() {
 
     private fun startTimer(id: String, activityName: String, description: String) {
 
-        binding.timeStart.text = "Odbrojavanje je pocelo"
+        binding.timeStart.text = "Timer has started"
         binding.timeBegin.visibility = View.GONE
         binding.timeEnd.visibility = View.VISIBLE
 

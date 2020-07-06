@@ -44,18 +44,13 @@ class HomeFragment : Fragment() {
         val increment = incrementSingleton.getActivities().toList().distinctBy { it?.name }
 
         val quantityList = binding.activitiesView
-        val incremenList = binding.incremnetView
+        val incrementList = binding.incremnetView
         val timePeriodList = binding.timePeriodView
 
 
         quantityList.adapter =  QuantityAdapter((quantity as List<QuantityCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
-        incremenList.adapter =  IncrementAdapter((increment as List<IncrementCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        incrementList.adapter =  IncrementAdapter((increment as List<IncrementCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
         timePeriodList.adapter = ActivitiesAdapter((timePeriod as List<TimeCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
-
-
-
-
-
 
         return binding.root
     }
