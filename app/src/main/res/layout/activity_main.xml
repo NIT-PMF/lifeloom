@@ -7,7 +7,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="#f3c623">
     <!--android:background="@drawable/wave_header"-->
     <com.scwang.wave.MultiWaveHeader
         android:id="@+id/waveHeader"
@@ -15,14 +16,14 @@
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:mwhVelocity="1"
-        app:mwhProgress="1"
-        app:mwhGradientAngle="45"
-        app:mwhWaveHeight="50dp"
-        app:mwhColorAlpha="0.45"
-        app:mwhStartColor="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
         app:mwhCloseColor="@color/colorAccent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:mwhColorAlpha="0.45"
+        app:mwhGradientAngle="45"
+        app:mwhProgress="1"
+        app:mwhStartColor="@color/colorPrimary"
+        app:mwhVelocity="1"
+        app:mwhWaveHeight="50dp" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
