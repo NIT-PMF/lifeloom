@@ -34,8 +34,26 @@ class MyQuantityRecyclerViewAdapter(
         holder.mIdView.text = item.name
         holder.mContentView.text = item.description
 
+        var listDates:String = ""
+        var listValues:String = ""
+
+        for(element in mValues){
+            if(element.name == item.name){
+                listDates += listDates + element.date.time.getTime().toString() + ','
+                listValues += listValues + element.value + ','
+            }
+        }
+
+
         holder.mButton.setOnClickListener { view ->
-            val bundle = bundleOf("activityName" to item.name)
+            val bundle = bundleOf("activityName" to item.name,
+                    Pair("state", "quantity"),
+                    Pair("dateInSeconds", listDates),
+                    Pair("id", item.id.toString()),
+                    Pair("properties", item.properties.toString()),
+                    Pair("value", listValues),
+                    Pair("description", item.description),
+                    Pair("unit", item.unit))
             navController.navigate(R.id.activityTrackerFragment, bundle)
         }
     }
