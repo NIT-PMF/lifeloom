@@ -10,6 +10,7 @@
     android:fitsSystemWindows="true"
     android:background="#f3c623">
     <!--android:background="@drawable/wave_header"-->
+
     <com.scwang.wave.MultiWaveHeader
         android:id="@+id/waveHeader"
         android:layout_width="match_parent"

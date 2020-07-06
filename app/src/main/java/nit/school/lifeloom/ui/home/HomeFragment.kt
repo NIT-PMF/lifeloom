@@ -39,18 +39,18 @@ class HomeFragment : Fragment() {
         buttonAdd.visibility = View.VISIBLE
 
         //Postavljanje liste
-        val quantity = quantitySingleton
-        val timePeriod = timePeriodSingleton
-        val increment = incrementSingleton
+        val quantity = quantitySingleton.getActivities().toList().distinctBy { it?.name }
+        val timePeriod = timePeriodSingleton.getActivities().toList().distinctBy { it?.name }
+        val increment = incrementSingleton.getActivities().toList().distinctBy { it?.name }
 
         val quantityList = binding.activitiesView
         val incremenList = binding.incremnetView
         val timePeriodList = binding.timePeriodView
 
 
-        quantityList.adapter =  QuantityAdapter((quantity.getActivities().toList() as List<QuantityCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
-        incremenList.adapter =  IncrementAdapter((increment.getActivities().toList() as List<IncrementCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
-        timePeriodList.adapter = ActivitiesAdapter((timePeriod.getActivities().toList() as List<TimeCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        quantityList.adapter =  QuantityAdapter((quantity as List<QuantityCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        incremenList.adapter =  IncrementAdapter((increment as List<IncrementCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
+        timePeriodList.adapter = ActivitiesAdapter((timePeriod as List<TimeCategory>), requireContext(), requireActivity().findNavController(R.id.nav_host_fragment))
 
 
 
