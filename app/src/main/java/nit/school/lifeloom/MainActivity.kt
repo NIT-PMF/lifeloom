@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             // Display the app icon in action bar/toolbar
             setDisplayShowHomeEnabled(true)
-            setLogo(R.mipmap.ic_launcher)
+            setIcon(R.mipmap.ic_launcher_round)
             setDisplayUseLogoEnabled(true)
         }
 
