@@ -1,6 +1,7 @@
 package nit.school.lifeloom.ui.adding
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,26 +11,48 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButtonToggleGroup
+import kotlinx.coroutines.*
 import nit.school.lifeloom.MainActivity
 
 import nit.school.lifeloom.R
+import nit.school.lifeloom.database.AppDB
+import nit.school.lifeloom.database.dao.IncrementCategoryDao
+import nit.school.lifeloom.database.dao.QuantityCategoryDao
+import nit.school.lifeloom.database.dao.TimeCategoryDao
+import nit.school.lifeloom.database.entity.IncrementTable
+import nit.school.lifeloom.database.entity.QuantityTable
+import nit.school.lifeloom.database.entity.TimeTable
 import nit.school.lifeloom.databinding.FragmentAddingActivityBinding
 import nit.school.lifeloom.logic.showToast
-import nit.school.lifeloom.singleton.Activity
-import nit.school.lifeloom.singleton.activitiesSingleton
+import nit.school.lifeloom.singleton.*
 import nit.school.lifeloom.ui.adding.adapter.StandardActivitiesAdapter
 import nit.school.lifeloom.ui.home.adapter.ActivitiesAdapter
+import java.util.*
 
 class AddingActivityFragment : Fragment() {
 
     private lateinit var binding: FragmentAddingActivityBinding
     private lateinit var spinner: Spinner
+    private lateinit var timeDb: TimeCategoryDao
+    private lateinit var quantityDb: QuantityCategoryDao
+    private lateinit var incrementDb: IncrementCategoryDao
+    private lateinit var job: Job
+    private lateinit var uiScope: CoroutineScope
 
+
+    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = inflate(inflater, R.layout.fragment_adding_activity, container, false)
+
+        timeDb = AppDB.getInstance((requireActivity() as MainActivity).applicationContext).timeCategoryDao
+        quantityDb = AppDB.getInstance((requireActivity() as MainActivity).applicationContext).quantityCategoryDao
+        incrementDb = AppDB.getInstance((requireActivity() as MainActivity).applicationContext).incrementCategoryDao
+
+        job = Job()
+        uiScope = CoroutineScope(Dispatchers.Main + job)
 
         //Brisanje + dugma
         val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
@@ -99,7 +122,75 @@ class AddingActivityFragment : Fragment() {
 
         }
 
+        binding.addActivityBtn.setOnClickListener{ uiScope.launch { addCategory()} }
+
         return binding.root
     }
+
+    private suspend fun addCategory() {
+        val state = binding.noActivitySpinner.selectedItem.toString()
+        val name = binding.activityNamePt.text.toString()
+        val description = binding.descriptionEt.text.toString()
+        val unit = binding.unitEt.text.toString()
+
+        if(state == "Time Period"){
+            val newTime = TimeTable()
+            newTime.name = name
+            newTime.description = description
+            insertT(newTime)
+            delay(1000)
+            showToast(requireContext(), "Time period Activity Added")
+
+            timePeriodSingleton.addActivity(TimeCategory(0, name, description,
+                    Calendar.getInstance(), listOf(), Calendar.getInstance(), Calendar.getInstance(), 0))
+
+
+
+        }else if(state == "Quantity"){
+            val newQuantity = QuantityTable()
+            newQuantity.name = name
+            newQuantity.description = description+ "\nUnit: " + unit
+            newQuantity.unit = unit
+            insertQ(newQuantity)
+            delay(1000)
+            showToast(requireContext(), "Quantity Activity Added")
+
+            quantitySingleton.addActivity(QuantityCategory(0, name, description,
+                    Calendar.getInstance(), listOf(),0, unit ))
+
+        }else{
+            val newIncrement = IncrementTable()
+            newIncrement.name = name
+            newIncrement.description = description + "\nUnit: " + unit
+            newIncrement.increment = unit.toInt()
+            insertI(newIncrement)
+            delay(1000)
+            showToast(requireContext(), "Increment Activity Added")
+
+            incrementSingleton.addActivity(IncrementCategory(0, name, description, Calendar.getInstance(), listOf(), 0, unit.toInt()))
+        }
+    }
+
+    private suspend fun insertT(timeTable: TimeTable) {
+
+        withContext(Dispatchers.IO) {
+            timeDb.insert(timeTable)
+
+        }
+    }
+
+    private suspend fun insertI(incrementTable:IncrementTable) {
+        withContext(Dispatchers.IO) {
+            incrementDb.insert(incrementTable)
+        }
+    }
+    private suspend fun insertQ(quantityTable: QuantityTable) {
+        withContext(Dispatchers.IO) {
+            quantityDb.insert(quantityTable)
+
+        }
+    }
+
+
 
 }

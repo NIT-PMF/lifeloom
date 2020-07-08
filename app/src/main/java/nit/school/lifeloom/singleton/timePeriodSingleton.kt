@@ -1,6 +1,5 @@
 package nit.school.lifeloom.singleton
 
-import androidx.lifecycle.LiveData
 import java.util.*
 import kotlin.math.abs
 
@@ -10,29 +9,6 @@ object timePeriodSingleton {
 
     //Konstruktor za aktivnosti
     init {
-        activityList.add(
-            TimeCategory(
-                1,
-                "Kalorije Dnevno",
-                "Pratim Kalorije",
-                Calendar.getInstance(),
-                listOf(null),
-                Calendar.getInstance(),
-                Calendar.getInstance(),
-                    10001
-
-            ))
-        activityList.add(
-            TimeCategory(
-                1,
-                "Kalorije Dnevno",
-                "Pratim Kalorije",
-                Calendar.getInstance(),
-                listOf(null),
-                Calendar.getInstance(),
-                Calendar.getInstance(),
-                    120000
-            ))
     }
 
     //Vracanje liste s podacima
@@ -51,8 +27,8 @@ object timePeriodSingleton {
     }
 
     //Dodaj Novu Aktivnosti
-    fun addActivity(IncrementCategory: TimeCategory) {
-        activityList.add(IncrementCategory)
+    fun addActivity(timeCategory: TimeCategory) {
+        activityList.add(timeCategory)
     }
     //Vraca indes za update u suprotnom -1
     fun updatePosition(name:String): Int {
@@ -67,7 +43,7 @@ object timePeriodSingleton {
 
     fun updatePositionValue(position:Int, date: Calendar){
         activityList[position]?.endTime = date
-        activityList[position]?.value = (date.time.getTime() -activityList[position]!!.startTime.time.getTime()).toInt()
+        activityList[position]?.value = (date.time.getTime() -activityList[position]!!.startTime.time.getTime())
     }
 
 
@@ -79,4 +55,4 @@ object timePeriodSingleton {
 
 }
 
-data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, val startTime: Calendar, var endTime: Calendar, var value:Int)
+data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, val startTime: Calendar, var endTime: Calendar, var value: Long)

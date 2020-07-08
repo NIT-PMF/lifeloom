@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.coroutines.InternalCoroutinesApi
 import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.R
 import nit.school.lifeloom.databinding.FragmentActivityTrackerBinding
@@ -26,6 +27,7 @@ import kotlin.text.toInt as toInt
 class ActivityTrackerFragment : Fragment() {
 
     private lateinit var binding: FragmentActivityTrackerBinding
+    @InternalCoroutinesApi
     private lateinit var viewModel: ActivityTrackerViewModel
     private lateinit var viewModelFactory: ActivityTrackerViewModelFactory
     var state:String = ""
@@ -33,6 +35,7 @@ class ActivityTrackerFragment : Fragment() {
     var unit:String = ""
     var valueList:MutableList<Int> = mutableListOf()
 
+    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +46,7 @@ class ActivityTrackerFragment : Fragment() {
         val activityName: String = arguments?.getString("activityName") ?: "Not Set"
         state = arguments?.getString("state") ?: "Not set"
 
-        viewModelFactory = ActivityTrackerViewModelFactory(activityName, state)
+        viewModelFactory = ActivityTrackerViewModelFactory(activityName, state, (requireActivity() as MainActivity).applicationContext)
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ActivityTrackerViewModel::class.java)
 
@@ -158,6 +161,7 @@ class ActivityTrackerFragment : Fragment() {
         return binding.root
     }
 
+    @InternalCoroutinesApi
     private fun endTimer() {
         viewModel.addTimeEnd()
         viewModel.running = false
@@ -171,6 +175,7 @@ class ActivityTrackerFragment : Fragment() {
 
     }
 
+    @InternalCoroutinesApi
     private fun startTimer(id: String, activityName: String, description: String) {
 
         binding.timeStart.text = "Timer has started"
@@ -186,6 +191,7 @@ class ActivityTrackerFragment : Fragment() {
     }
 
 
+    @InternalCoroutinesApi
     private fun quantityAdd(id: String, activityName: String, description: String) {
         val prvValue = binding.quantityValue.text.toString()
         val newValue  = binding.quantityInput.text.toString()
@@ -208,6 +214,7 @@ class ActivityTrackerFragment : Fragment() {
         binding.quantityValue.text = viewModel.value.toString()
     }
 
+    @InternalCoroutinesApi
     private fun onSubmitValue(id:String, name:String, description:String) {
         if(state == "increment"){
             viewModel.addIncrement(id.toInt(), name, description, increment.toInt())
@@ -217,6 +224,7 @@ class ActivityTrackerFragment : Fragment() {
     }
 
 
+    @InternalCoroutinesApi
     private fun substractAddClick(sustract:Boolean, id:String, name:String, description:String) {
         val prvValue = binding.incrementValue.text.toString()
         val value:Int

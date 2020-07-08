@@ -1,6 +1,5 @@
 package nit.school.lifeloom.singleton
 
-import androidx.lifecycle.LiveData
 import java.util.*
 import kotlin.math.abs
 
@@ -10,77 +9,6 @@ object quantitySingleton {
 
     //Konstruktor za aktivnosti
     init {
-        activityList.add(
-            QuantityCategory(
-                1,
-                "Kalorije Dnevno",
-                "Pratim Kalorije",
-                Calendar.getInstance(),
-                listOf(Property(
-                    1,
-                    "Odmor",
-                    2
-                )),
-                12,
-            "bam"
-            ))
-        activityList.add(
-        QuantityCategory(
-            1,
-            "Otkucaj Srca",
-            "Pratio dnevno",
-            Calendar.getInstance(),
-            listOf(Property(
-                1,
-                "Odmor",
-                10
-            ),
-            Property(
-                2,
-                "Vjezbe",
-                15
-            )),
-            12,
-                "bam"
-        ))
-        activityList.add(
-                QuantityCategory(
-                        1,
-                        "Otkucaj Srca",
-                        "Pratio dnevno",
-                        Calendar.getInstance(),
-                        listOf(Property(
-                                1,
-                                "Odmor",
-                                10
-                        ),
-                                Property(
-                                        2,
-                                        "Vjezbe",
-                                        15
-                                )),
-                        12,
-                        "bam"
-                ))
-        activityList.add(
-                QuantityCategory(
-                        1,
-                        "Otkucaj Srca",
-                        "Pratio dnevno",
-                        Calendar.getInstance(),
-                        listOf(Property(
-                                1,
-                                "Odmor",
-                                10
-                        ),
-                                Property(
-                                        2,
-                                        "Vjezbe",
-                                        15
-                                )),
-                        12,
-                        "bam"
-                ))
     }
 
     //Vracanje liste s podacima
@@ -99,8 +27,8 @@ object quantitySingleton {
     }
 
     //Dodaj Novu Aktivnosti
-    fun addActivity(IncrementCategory: QuantityCategory) {
-        activityList.add(IncrementCategory)
+    fun addActivity(quantityCategory: QuantityCategory) {
+        activityList.add(quantityCategory)
     }
 
     //Vraca indes za update u suprotnom -1
@@ -126,4 +54,4 @@ object quantitySingleton {
 
 }
 
-data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, var value: Int, val unit:String)
+data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, var value: Int, val unit: String)

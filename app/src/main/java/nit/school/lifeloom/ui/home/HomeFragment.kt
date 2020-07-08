@@ -9,8 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import kotlinx.coroutines.*
 import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.R
+import nit.school.lifeloom.database.AppDB
+import nit.school.lifeloom.database.dao.IncrementCategoryDao
+import nit.school.lifeloom.database.dao.QuantityCategoryDao
+import nit.school.lifeloom.database.dao.TimeCategoryDao
 import nit.school.lifeloom.databinding.FragmentHomeBinding
 import nit.school.lifeloom.singleton.*
 import nit.school.lifeloom.ui.home.adapter.ActivitiesAdapter
@@ -23,6 +28,8 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
+
+    @InternalCoroutinesApi
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -54,4 +61,7 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
+
+
 }

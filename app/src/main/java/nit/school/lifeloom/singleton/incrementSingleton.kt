@@ -10,50 +10,6 @@ object incrementSingleton {
 
     //Konstruktor za aktivnosti
     init {
-        activityList.add(
-            IncrementCategory(
-                1,
-                "Zadace",
-                "Uradio zadacu",
-                Calendar.getInstance(),
-                listOf(Property(
-                    1,
-                    "Odmor",
-                    2
-                )),
-                1,
-                    1
-            )
-        )
-        activityList.add(
-        IncrementCategory(
-                    1,
-            "Popio tablete",
-            "Pratio dnevno",
-            Calendar.getInstance(),
-            listOf(Property(
-                1,
-                "Odmor",
-                10
-            )),
-            4,
-                2
-        ))
-
-        activityList.add(
-                IncrementCategory(
-                        1,
-                        "Popio tablete",
-                        "Pratio dnevno",
-                        Calendar.getInstance(),
-                        listOf(Property(
-                                1,
-                                "Odmor",
-                                10
-                        )),
-                        4,
-                        2
-                ))
     }
 
     //Vracanje liste s podacima
