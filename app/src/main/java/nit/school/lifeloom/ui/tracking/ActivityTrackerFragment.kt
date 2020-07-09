@@ -240,8 +240,8 @@ class ActivityTrackerFragment : Fragment() {
 
         if(numeric) {
             value = newValue.toInt() + prvValue.toInt()
-            onSubmitValue(id, activityName, description)
             viewModel.value = value
+            onSubmitValue(id, activityName, description)
         }else{
             showToast(requireContext(), "Nije broj")
         }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
+
         //Dodavanje + ukoliko se vrati sa AddingActivityFragment
         val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
         buttonAdd.visibility = View.VISIBLE
@@ -50,6 +52,9 @@ class HomeFragment : Fragment() {
         val quantity = quantitySingleton.getActivities().toList().distinctBy { it?.name }
         val timePeriod = timePeriodSingleton.getActivities().toList().distinctBy { it?.name }
         val increment = incrementSingleton.getActivities().toList().distinctBy { it?.name }
+
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = "Dashboard"
+        (activity as AppCompatActivity?)!!.supportActionBar!!.subtitle = "Current Categories: " + (quantity.size + timePeriod.size + increment.size)
 
         val quantityList = binding.activitiesView
         val incrementList = binding.incremnetView

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import nit.school.lifeloom.R
 import nit.school.lifeloom.singleton.QuantityCategory
@@ -27,6 +28,9 @@ class QuantityFragment : Fragment() {
 
         //Vratiti podatke iz baze
         val kategorija_lista = quantitySingleton.getActivities().distinctBy { it?.name }
+
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = "Quantity Categories"
+        (activity as AppCompatActivity?)!!.supportActionBar!!.subtitle = "Current Categories: " + kategorija_lista.size
 
         // Set the adapter
         val listQuantityView = view.findViewById<RecyclerView>(R.id.quantity_list)

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import nit.school.lifeloom.R
 import nit.school.lifeloom.singleton.TimeCategory
@@ -27,6 +28,9 @@ class TimeFragment : Fragment() {
 
         //Vratiti podatke iz baze
         val kategorija_lista = timePeriodSingleton.getActivities().distinctBy { it?.name }
+
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = "Time Period Categories"
+        (activity as AppCompatActivity?)!!.supportActionBar!!.subtitle = "Current Categories: " + kategorija_lista.size
 
         // Set the adapter
         val listTimeView = view.findViewById<RecyclerView>(R.id.time_list)

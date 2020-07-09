@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +51,9 @@ class AddingActivityFragment : Fragment() {
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
+
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = "Adding New Activity"
+        (activity as AppCompatActivity?)!!.supportActionBar!!.subtitle = "Please fill all the fields"
 
         //Brisanje + dugma
         val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
