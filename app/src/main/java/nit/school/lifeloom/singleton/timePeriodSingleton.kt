@@ -1,7 +1,6 @@
 package nit.school.lifeloom.singleton
 
 import java.util.*
-import kotlin.math.abs
 
 /** Sadrzi podatke o aktivnostima **/
 object timePeriodSingleton {
@@ -80,4 +79,4 @@ object timePeriodSingleton {
 
 }
 
-data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, val startTime: Calendar, var endTime: Calendar, var value: Long)
+data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property>, val startTime: Calendar, var endTime: Calendar, var value: Long)

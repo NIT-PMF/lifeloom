@@ -3,9 +3,7 @@ package nit.school.lifeloom.ui.tracking
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
-import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.database.AppDB
 import nit.school.lifeloom.database.dao.IncrementCategoryDao
 import nit.school.lifeloom.database.dao.QuantityCategoryDao
@@ -14,7 +12,6 @@ import nit.school.lifeloom.database.entity.IncrementTable
 import nit.school.lifeloom.database.entity.QuantityTable
 import nit.school.lifeloom.database.entity.TimeTable
 import nit.school.lifeloom.singleton.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -121,12 +118,21 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
     }
 
     fun addPropertyToQuantitySingelton(nameOfProperty:String, from:String, to:String){
+        runBlocking { withContext(Dispatchers.IO){
+            val value: String = "," + nameOfProperty + "." + from + ":" + to
+            quantityDb.updateProperty(value, name)
+        } }
         quantitySingleton.updateProperty(name, nameOfProperty, from, to)
         propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())
     }
 
     fun addPropertyToIncrementSingelton(nameOfProperty:String, from:String, to:String){
+        runBlocking { withContext(Dispatchers.IO){
+            val value: String = "," + nameOfProperty + "." + from + ":" + to
+            incrementDb.updateProperty(value, name)
+        } }
+
         incrementSingleton.updateProperty(name, nameOfProperty, from, to)
         propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())
@@ -134,6 +140,11 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
 
 
     fun addPropertyToTimeSingelton(nameOfProperty:String, from:String, to:String){
+        runBlocking { withContext(Dispatchers.IO){
+            val value: String = "," + nameOfProperty + "." + from + ":" + to
+            timeDb.updateProperty(value, name)
+        } }
+
         timePeriodSingleton.updateProperty(name, nameOfProperty, from, to)
         propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())

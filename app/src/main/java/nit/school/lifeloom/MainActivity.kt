@@ -72,8 +72,9 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
+
                 R.id.navigation_home, R.id.navigation_incremental, R.id.navigation_quantity, R.id.navigation_time))
-        setupActionBarWithNavController(navController, appBarConfiguration)
+     setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
@@ -86,12 +87,14 @@ class MainActivity : AppCompatActivity() {
             for (quantity in quantityList){
                 val date = Calendar.getInstance()
                 date.timeInMillis = quantity.date
-                quantitySingleton.addActivity(QuantityCategory(0,quantity.name, quantity.description, date, mutableListOf(),quantity.value, quantity.unit))
+                val listOfProperty = toMutableList(quantity.properties)
+                quantitySingleton.addActivity(QuantityCategory(0,quantity.name, quantity.description, date, listOfProperty ,quantity.value, quantity.unit))
             }
             for (increment in incrementList){
                 val date = Calendar.getInstance()
                 date.timeInMillis = increment.date
-                incrementSingleton.addActivity(IncrementCategory(0, increment.name, increment.description, date, mutableListOf(), increment.value, increment.increment))
+                val listOfProperty = toMutableList(increment.properties)
+                incrementSingleton.addActivity(IncrementCategory(0, increment.name, increment.description, date, listOfProperty, increment.value, increment.increment))
             }
             for (time in timeList){
                 val date = Calendar.getInstance()
@@ -100,7 +103,8 @@ class MainActivity : AppCompatActivity() {
                 date.timeInMillis = time.date
                 startTime.timeInMillis = time.startTime
                 endTime.timeInMillis = time.endTime
-                timePeriodSingleton.addActivity(TimeCategory(0,time.name,time.description, date, mutableListOf(),  startTime, endTime, ((time.endTime - time.startTime) / 1000)))
+                val listOfProperty = toMutableList(time.properties)
+                timePeriodSingleton.addActivity(TimeCategory(0,time.name,time.description, date, listOfProperty,  startTime, endTime, ((time.endTime - time.startTime) / 1000)))
                 Log.i("message",time.toString());
             }
             timeList
@@ -108,6 +112,22 @@ class MainActivity : AppCompatActivity() {
  }}
     }
 
+    private fun toMutableList(properties: String): MutableList<Property> {
+        Log.i("mesage", properties)
+
+        val list: MutableList<Property> = mutableListOf()
+
+        val splitList = properties.split(",")
+
+        for(element in splitList){
+            if(element != ""){
+                val namesplit = element.split(".")
+                val rangeSplit = namesplit[1].split(":")
+                list.add(Property(namesplit[0], rangeSplit[0], rangeSplit[1]))
+            }
+        }
+        return list
+    }
 
 
     override fun onSupportNavigateUp(): Boolean {

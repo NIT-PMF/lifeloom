@@ -19,6 +19,9 @@ interface TimeCategoryDao {
     @Query("Delete from time_category where name = :key")
     fun delete(key: String)
 
+    @Query("Update time_category Set properties = properties + :value where name = :name")
+    fun updateProperty(value:String, name:String)
+
     @Query("Select * from time_category order by date desc")
     fun getAll(): List<TimeTable>
 

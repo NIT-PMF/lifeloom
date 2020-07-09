@@ -19,6 +19,8 @@ interface IncrementCategoryDao {
     @Query("Delete from increment_category where name = :key")
     fun delete(key: String)
 
+    @Query("Update increment_category Set properties = properties + :value where name = :name")
+    fun updateProperty(value:String, name:String)
     @Query("Select * from increment_category order by date desc")
     fun getAll(): List<IncrementTable>
 

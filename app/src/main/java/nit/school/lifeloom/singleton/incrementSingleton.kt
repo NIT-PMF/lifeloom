@@ -78,5 +78,5 @@ object incrementSingleton {
                 return newPropertyList }
 }
 
-data class IncrementCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, var value: Int, val increment: Int)
+data class IncrementCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property>, var value: Int, val increment: Int)
 data class Property(val name: String, val from:String, val to:String)

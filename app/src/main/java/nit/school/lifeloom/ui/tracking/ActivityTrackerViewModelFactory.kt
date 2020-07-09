@@ -10,7 +10,7 @@ class ActivityTrackerViewModelFactory(private val name: String, private  val sta
     @InternalCoroutinesApi
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ActivityTrackerViewModel::class.java)) {
-            return ActivityTrackerViewModel(name, state, applicationContext) as T
+                return ActivityTrackerViewModel(name, state, applicationContext) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }}

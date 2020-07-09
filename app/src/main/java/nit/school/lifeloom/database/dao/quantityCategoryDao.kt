@@ -19,6 +19,9 @@ interface QuantityCategoryDao {
     @Query("Delete from quantity_category where name = :key")
     fun delete(key: String)
 
+    @Query("Update quantity_category Set properties = properties + :value where name = :name")
+    fun updateProperty(value:String, name:String)
+
     @Query("Select * from quantity_category order by date desc")
     fun getAll(): List<QuantityTable>
 
