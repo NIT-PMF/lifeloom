@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeFragment">
+
+
+        <TextView
+            android:id="@+id/categories_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#BF000000"
+            android:padding="6dp"
+            android:text="All Categories"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/activities_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categories_tv" />
+
+        <GridView
+            android:id="@+id/incremnet_view"
+            android:layout_width="348dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:verticalSpacing="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inrecement_main_tv" />
+
+        <GridView
+            android:id="@+id/timePeriod_view"
+            android:layout_width="348dp"
+            android:layout_height="100dp"
+
+            android:layout_marginTop="5dp"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:verticalSpacing="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timePeriod_main_tv" />
+
+        <GridView
+            android:id="@+id/activities_view"
+            android:layout_width="348dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="16dp"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:scrollbars="vertical"
+            android:verticalSpacing="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        </GridView>
+
+        <TextView
+            android:id="@+id/quantity_main_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="5dp"
+            android:text="Quantity Categories"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/activities_view"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/timePeriod_main_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="4dp"
+            android:text="TimePeriod Categories"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activities_view" />
+
+        <TextView
+            android:id="@+id/inrecement_main_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="4dp"
+            android:text="Increment Categories"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timePeriod_view" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
+    </ScrollView>
+
+</layout>
