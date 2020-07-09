@@ -78,4 +78,4 @@ object quantitySingleton {
     }
 }
 
-data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, var value: Int, val unit: String)
+data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property>, var value: Int, val unit: String)

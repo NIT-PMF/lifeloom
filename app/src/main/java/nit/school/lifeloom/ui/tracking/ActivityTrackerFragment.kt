@@ -197,12 +197,14 @@ class ActivityTrackerFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun endTimer() {
-        viewModel.addTimeEnd()
+        viewModel.addTimeEnd(
+                binding.simpleChronometer.base)
         viewModel.running = false
 
         binding.timeStart.text = "Timer has not started"
         binding.timeBegin.visibility = View.VISIBLE
         binding.timeEnd.visibility = View.GONE
+
 
         binding.simpleChronometer.stop()
         binding.simpleChronometer.base = SystemClock.elapsedRealtime()
@@ -227,7 +229,7 @@ class ActivityTrackerFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun quantityAdd(id: String, activityName: String, description: String) {
-        val prvValue = binding.quantityValue.text.toString()
+        val prvValue = viewModel.value
         val newValue  = binding.quantityInput.text.toString()
         var value:Int = 0
         var numeric = true
@@ -239,7 +241,7 @@ class ActivityTrackerFragment : Fragment() {
         }
 
         if(numeric) {
-            value = newValue.toInt() + prvValue.toInt()
+            value = newValue.toInt() + prvValue
             viewModel.value = value
             onSubmitValue(id, activityName, description)
         }else{

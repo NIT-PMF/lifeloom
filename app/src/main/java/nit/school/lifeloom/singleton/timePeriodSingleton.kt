@@ -1,7 +1,8 @@
 package nit.school.lifeloom.singleton
 
+import android.os.SystemClock
+import android.util.Log
 import java.util.*
-import kotlin.math.abs
 
 /** Sadrzi podatke o aktivnostima **/
 object timePeriodSingleton {
@@ -41,9 +42,9 @@ object timePeriodSingleton {
         return -1
     }
 
-    fun updatePositionValue(position:Int, date: Calendar){
+    fun updatePositionValue(position:Int, date: Calendar, time:Long){
         activityList[position]?.endTime = date
-        activityList[position]?.value = (date.time.getTime() -activityList[position]!!.startTime.time.getTime())
+        activityList[position]?.value = SystemClock.elapsedRealtime() - time
     }
 
 
@@ -80,4 +81,4 @@ object timePeriodSingleton {
 
 }
 
-data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, val startTime: Calendar, var endTime: Calendar, var value: Long)
+data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property>, val startTime: Calendar, var endTime: Calendar, var value: Long)

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.anychart.AnyChartFormat.date
 import kotlinx.android.synthetic.main.information_list_item.view.*
 import nit.school.lifeloom.R
 import nit.school.lifeloom.singleton.IncrementCategory
@@ -14,6 +15,7 @@ import nit.school.lifeloom.singleton.QuantityCategory
 import nit.school.lifeloom.singleton.TimeCategory
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class InformationAdapter(
@@ -56,8 +58,14 @@ class InformationAdapter(
 
         } else {
             val item = mValuesTime[position]
+            val diff = item.value
+            val seconds = diff / 1000
+            val minutes = seconds / 60
+            val hours = minutes / 60
+            val days = hours / 24
+            
             holder.mIdView.text = formatter.format(item.date.time)
-            holder.mContentView.text = item.value.toString()
+            holder.mContentView.text = hours.toString() + ":" + minutes.toString() + ":" + seconds.toString()
             var propertyName = ""
             for(property in item.properties){
                 if(item.value.toInt() > property!!.from.toInt() && item.value.toInt() < property!!.to.toInt()){

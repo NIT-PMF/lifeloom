@@ -1,11 +1,10 @@
 package nit.school.lifeloom.ui.tracking
 
 import android.content.Context
+import android.os.SystemClock
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
-import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.database.AppDB
 import nit.school.lifeloom.database.dao.IncrementCategoryDao
 import nit.school.lifeloom.database.dao.QuantityCategoryDao
@@ -14,7 +13,6 @@ import nit.school.lifeloom.database.entity.IncrementTable
 import nit.school.lifeloom.database.entity.QuantityTable
 import nit.school.lifeloom.database.entity.TimeTable
 import nit.school.lifeloom.singleton.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -83,6 +81,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
         }
     }
     fun addQuantity( id:Number, name:String, description:String, unit:String) {
+        Log.i("messege", value.toString())
         val position = quantitySingleton.updatePosition(Calendar.getInstance(), name)
         if(position == -1) {
             quantitySingleton.addActivity(QuantityCategory(id, name, description, Calendar.getInstance(), mutableListOf(), value, unit))
@@ -107,26 +106,35 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
         }
         }
     }
-    fun addTimeEnd(){
+    fun addTimeEnd(time:Long){
         val position = timePeriodSingleton.updatePosition(name)
         if(position != -1) {
             val date =  Calendar.getInstance()
-            timePeriodSingleton.updatePositionValue(position, date)
+            timePeriodSingleton.updatePositionValue(position, date, time)
             runBlocking { withContext(Dispatchers.IO) {
                 timeDb.update((date.timeInMillis - timePeriodSingleton.getActivityByPosition(position)!!.startTime.timeInMillis)/1000,
                         timePeriodSingleton.getActivityByPosition(position)!!.startTime.timeInMillis,
-                        date.timeInMillis, name, timePeriodSingleton.getActivityByPosition(position)!!.date.timeInMillis)
+                        date.timeInMillis, name, SystemClock.elapsedRealtime() - time)
             } }
         }
     }
 
     fun addPropertyToQuantitySingelton(nameOfProperty:String, from:String, to:String){
+        runBlocking { withContext(Dispatchers.IO){
+            val value: String = "," + nameOfProperty + "." + from + ":" + to
+            quantityDb.updateProperty(value, name)
+        } }
         quantitySingleton.updateProperty(name, nameOfProperty, from, to)
         propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())
     }
 
     fun addPropertyToIncrementSingelton(nameOfProperty:String, from:String, to:String){
+        runBlocking { withContext(Dispatchers.IO){
+            val value: String = "," + nameOfProperty + "." + from + ":" + to
+            incrementDb.updateProperty(value, name)
+        } }
+
         incrementSingleton.updateProperty(name, nameOfProperty, from, to)
         propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())
@@ -134,6 +142,11 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
 
 
     fun addPropertyToTimeSingelton(nameOfProperty:String, from:String, to:String){
+        runBlocking { withContext(Dispatchers.IO){
+            val value: String = "," + nameOfProperty + "." + from + ":" + to
+            timeDb.updateProperty(value, name)
+        } }
+
         timePeriodSingleton.updateProperty(name, nameOfProperty, from, to)
         propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())
