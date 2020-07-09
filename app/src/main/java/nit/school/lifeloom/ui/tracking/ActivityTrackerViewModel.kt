@@ -1,6 +1,7 @@
 package nit.school.lifeloom.ui.tracking
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
@@ -24,6 +25,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
     var name = name
     var running = false
     var baseTime:Long = 0
+    var propertyList:MutableList<Property> = mutableListOf()
     private lateinit var timeDb: TimeCategoryDao
     private lateinit var quantityDb: QuantityCategoryDao
     private lateinit var incrementDb: IncrementCategoryDao
@@ -41,10 +43,12 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
             }
         }else if(state == "quantity"){
             val position = quantitySingleton.updatePosition(Calendar.getInstance(), name)
+            Log.i("messege position", position.toString())
+            propertyList = quantitySingleton.propertyList(name)
             if (position == -1) {
                 value = 0
             } else {
-                value = quantitySingleton.getActivityByPosition(position)?.value ?: 0
+                value = quantitySingleton.getActivityByPosition(position)!!.value
             }
         }else{
             value = 0
@@ -56,6 +60,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
+
 
     }
 
@@ -77,7 +82,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
     fun addQuantity( id:Number, name:String, description:String, unit:String) {
         val position = quantitySingleton.updatePosition(Calendar.getInstance(), name)
         if(position == -1) {
-            quantitySingleton.addActivity(QuantityCategory(id, name, description, Calendar.getInstance(), listOf(), value, unit))
+            quantitySingleton.addActivity(QuantityCategory(id, name, description, Calendar.getInstance(), mutableListOf(), value, unit))
             runBlocking { withContext(Dispatchers.IO){
                 quantityDb.insert(QuantityTable(id.toInt(), name, description, Calendar.getInstance().timeInMillis, "", value, unit))
             } }
@@ -110,6 +115,11 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
                         date.timeInMillis, name, timePeriodSingleton.getActivityByPosition(position)!!.date.timeInMillis)
             } }
         }
+    }
+
+    fun addPropertyToQuantitySingelton(nameOfProperty:String, from:String, to:String){
+        quantitySingleton.updateProperty(name, nameOfProperty, from, to)
+        Log.i("message", quantitySingleton.getActivities().toString())
     }
 
 

@@ -33,7 +33,7 @@ object quantitySingleton {
 
     //Vraca indes za update u suprotnom -1
     fun updatePosition(date:Calendar, name:String): Int {
-        for (i in 0..activityList.size){
+        for (i in 0..(activityList.size-1)){
             if(abs(activityList[i]?.date!!.time.getTime() - date.time.getTime()) < 86400
                     && activityList[i]!!.name == name){
                 return i
@@ -51,7 +51,31 @@ object quantitySingleton {
         return activityList[position]
     }
 
+    fun updateProperty(name:String, nameOfProperty: String,from:String, to:String ){
+        val newProperty = Property(nameOfProperty, from, to)
+        for (quantity in activityList){
+            if (quantity?.name == name){
+                quantity.properties.add(newProperty)
+            }
+        }
+    }
+
+    fun propertyList(name: String): MutableList<Property> {
+        var newPropertyList:MutableList<Property> = mutableListOf()
+        for(quantity in activityList){
+            if(quantity?.name == name) {
+                for(property in quantity.properties){
+                    if (property != null) {
+                        newPropertyList.add(property)
+                    }
+                }
+                break
+            }
+        }
+        return newPropertyList
+    }
+
 
 }
 
-data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, var value: Int, val unit: String)
+data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, var value: Int, val unit: String)

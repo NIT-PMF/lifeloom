@@ -170,7 +170,7 @@ class AddingActivityFragment : Fragment() {
             showToast(requireContext(), "Quantity Activity Added")
 
             quantitySingleton.addActivity(QuantityCategory(0, name, description,
-                    Calendar.getInstance(), listOf(),0, unit ))
+                    Calendar.getInstance(), mutableListOf(),0, unit ))
 
         }else{
             val newIncrement = IncrementTable()

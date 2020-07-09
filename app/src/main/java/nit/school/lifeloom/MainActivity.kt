@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             for (quantity in quantityList){
                 val date = Calendar.getInstance()
                 date.timeInMillis = quantity.date
-                quantitySingleton.addActivity(QuantityCategory(0,quantity.name, quantity.description, date, listOf(),quantity.value, quantity.unit))
+                quantitySingleton.addActivity(QuantityCategory(0,quantity.name, quantity.description, date, mutableListOf(),quantity.value, quantity.unit))
             }
             for (increment in incrementList){
                 val date = Calendar.getInstance()

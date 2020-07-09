@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_activity_tracker.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import nit.school.lifeloom.MainActivity
@@ -154,11 +155,41 @@ class ActivityTrackerFragment : Fragment() {
             }
             binding.timeBegin.setOnClickListener{startTimer(id, activityName, description)}
             binding.timeEnd.setOnClickListener{endTimer()}
+            binding.addProperty.setOnClickListener{addProperty()}
+            binding.addTolist.setOnClickListener{addPropertyToLis()}
 
         }
 
 
         return binding.root
+    }
+
+    @InternalCoroutinesApi
+    private fun addPropertyToLis() {
+        val name = binding.propertyName.text.toString()
+        val from = binding.fromInput.text.toString()
+        val to = binding.toInput.text.toString()
+
+        if(state == "increment"){
+            binding.incrementLayout.visibility = View.VISIBLE
+        }else if(state == "quantity"){
+            binding.quantityLayout.visibility = View.VISIBLE
+            viewModel.addPropertyToQuantitySingelton(name, from, to)
+
+        }else{
+            binding.timeLayout.visibility = View.VISIBLE
+        }
+        binding.propertyLayout.visibility = View.GONE
+
+
+
+    }
+
+    private fun addProperty() {
+        binding.incrementLayout.visibility = View.GONE
+        binding.quantityLayout.visibility = View.GONE
+        binding.timeLayout.visibility = View.GONE
+        binding.propertyLayout.visibility = View.VISIBLE
     }
 
     @InternalCoroutinesApi
