@@ -1,7 +1,11 @@
 package nit.school.lifeloom.ui.adding
 
 import android.os.Bundle
+<<<<<<< Updated upstream
 import android.util.Log
+=======
+import android.text.InputType
+>>>>>>> Stashed changes
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -96,15 +100,25 @@ class AddingActivityFragment : Fragment() {
         //Kad klikne na checkbox pokazati dodatne konfiguracije
         binding.addInfoCb.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                binding.descriptionEt.visibility = View.VISIBLE
                 val vrijednost = binding.noActivitySpinner.selectedItem.toString()
+
+                if (vrijednost == "Time Period")
+                    binding.unitEt.visibility = View.GONE
+                else
+                    binding.unitEt.visibility = View.VISIBLE
+
+                if (vrijednost == "Incremental")
+                    binding.unitEt.inputType = InputType.TYPE_CLASS_NUMBER
+                else
+                    binding.unitEt.inputType = InputType.TYPE_CLASS_TEXT
+
                 binding.unitEt.hint = when (vrijednost) {
-                    "Time Period" -> "Choose custom Time Period Unit"
-                    "Incremental" -> "Choose custom Incremental Unit"
+                    "Incremental" -> "Choose the amount to increment by"
                     "Quantity" -> "Choose custom Quantity Unit"
                     else -> "Choose a custom unit"
                 }
-                binding.unitEt.visibility = View.VISIBLE
-                binding.descriptionEt.visibility = View.VISIBLE
+
             } else {
                 binding.unitEt.visibility = View.GONE
                 binding.descriptionEt.visibility = View.GONE
