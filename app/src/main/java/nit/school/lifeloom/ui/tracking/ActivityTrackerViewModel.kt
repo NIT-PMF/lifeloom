@@ -80,6 +80,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
         }
     }
     fun addQuantity( id:Number, name:String, description:String, unit:String) {
+        Log.i("messege", value.toString())
         val position = quantitySingleton.updatePosition(Calendar.getInstance(), name)
         if(position == -1) {
             quantitySingleton.addActivity(QuantityCategory(id, name, description, Calendar.getInstance(), mutableListOf(), value, unit))

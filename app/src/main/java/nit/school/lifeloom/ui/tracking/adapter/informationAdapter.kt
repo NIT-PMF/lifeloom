@@ -45,7 +45,7 @@ class InformationAdapter(
         } else if (mValuesQuantity.size > 0) {
             val item = mValuesQuantity[position]
             holder.mIdView.text = formatter.format(item.date.time)
-            holder.mContentView.text = formatter.format(item.date.time)
+            holder.mContentView.text = item.value.toString()
             var propertyName = ""
             for(property in item.properties){
                 if(item.value.toInt() > property!!.from.toInt() && item.value.toInt() < property!!.to.toInt()){
