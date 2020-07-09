@@ -155,29 +155,32 @@ class ActivityTrackerFragment : Fragment() {
             }
             binding.timeBegin.setOnClickListener{startTimer(id, activityName, description)}
             binding.timeEnd.setOnClickListener{endTimer()}
-            binding.addProperty.setOnClickListener{addProperty()}
-            binding.addTolist.setOnClickListener{addPropertyToLis()}
-
         }
+
+        binding.addProperty.setOnClickListener{addProperty()}
+        binding.addTolist.setOnClickListener{addPropertyToList()}
+
 
 
         return binding.root
     }
 
     @InternalCoroutinesApi
-    private fun addPropertyToLis() {
+    private fun addPropertyToList() {
         val name = binding.propertyName.text.toString()
         val from = binding.fromInput.text.toString()
         val to = binding.toInput.text.toString()
 
         if(state == "increment"){
             binding.incrementLayout.visibility = View.VISIBLE
+            viewModel.addPropertyToIncrementSingelton(name, from, to)
         }else if(state == "quantity"){
             binding.quantityLayout.visibility = View.VISIBLE
             viewModel.addPropertyToQuantitySingelton(name, from, to)
 
         }else{
             binding.timeLayout.visibility = View.VISIBLE
+            viewModel.addPropertyToTimeSingelton(name, from, to)
         }
         binding.propertyLayout.visibility = View.GONE
 

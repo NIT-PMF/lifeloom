@@ -14,6 +14,7 @@ import nit.school.lifeloom.database.entity.IncrementTable
 import nit.school.lifeloom.database.entity.QuantityTable
 import nit.school.lifeloom.database.entity.TimeTable
 import nit.school.lifeloom.singleton.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -36,6 +37,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
     init{
         if(state == "increment") {
             val position = incrementSingleton.updatePosition(Calendar.getInstance(), name)
+            propertyList = incrementSingleton.propertyList(name)
             if (position == -1) {
                 value = 0
             } else {
@@ -51,6 +53,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
                 value = quantitySingleton.getActivityByPosition(position)!!.value
             }
         }else{
+            propertyList = timePeriodSingleton.propertyList(name)
             value = 0
         }
 
@@ -67,7 +70,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
     fun addIncrement( id:Number, name:String, description:String, increment:Int) {
         val position = incrementSingleton.updatePosition(Calendar.getInstance(), name)
         if(position == -1) {
-            incrementSingleton.addActivity(IncrementCategory(id, name, description, Calendar.getInstance(), listOf(), value, increment))
+            incrementSingleton.addActivity(IncrementCategory(id, name, description, Calendar.getInstance(), mutableListOf(), value, increment))
             runBlocking { withContext(Dispatchers.IO){
                 incrementDb.insert(IncrementTable(id as Int, name, description, Calendar.getInstance().timeInMillis, "", value, increment))
             }
@@ -97,7 +100,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
     fun addTimeStart( id:Number, name:String, description:String, time:Long){
         baseTime = time
         val date = Calendar.getInstance()
-        timePeriodSingleton.addActivity(TimeCategory(id, name, description, Calendar.getInstance(), listOf(), date, date, 0))
+        timePeriodSingleton.addActivity(TimeCategory(id, name, description, Calendar.getInstance(), mutableListOf(), date, date, 0))
         runBlocking { withContext(Dispatchers.IO){
             timeDb.insert(TimeTable(name = name, description = description, date = Calendar.getInstance().timeInMillis, properties = "", startTime = date.timeInMillis, endTime = date.timeInMillis, value = 0))
 
@@ -119,6 +122,20 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
 
     fun addPropertyToQuantitySingelton(nameOfProperty:String, from:String, to:String){
         quantitySingleton.updateProperty(name, nameOfProperty, from, to)
+        propertyList.add(Property(nameOfProperty, from, to))
+        Log.i("message", quantitySingleton.getActivities().toString())
+    }
+
+    fun addPropertyToIncrementSingelton(nameOfProperty:String, from:String, to:String){
+        incrementSingleton.updateProperty(name, nameOfProperty, from, to)
+        propertyList.add(Property(nameOfProperty, from, to))
+        Log.i("message", quantitySingleton.getActivities().toString())
+    }
+
+
+    fun addPropertyToTimeSingelton(nameOfProperty:String, from:String, to:String){
+        timePeriodSingleton.updateProperty(name, nameOfProperty, from, to)
+        propertyList.add(Property(nameOfProperty, from, to))
         Log.i("message", quantitySingleton.getActivities().toString())
     }
 

@@ -1,11 +1,9 @@
 package nit.school.lifeloom.ui.adding
 
 import android.os.Bundle
-<<<<<<< Updated upstream
 import android.util.Log
-=======
+
 import android.text.InputType
->>>>>>> Stashed changes
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -156,7 +154,7 @@ class AddingActivityFragment : Fragment() {
             showToast(requireContext(), "Time period Activity Added")
 
             timePeriodSingleton.addActivity(TimeCategory(0, name, description,
-                    Calendar.getInstance(), listOf(), Calendar.getInstance(), Calendar.getInstance(), 0))
+                    Calendar.getInstance(), mutableListOf(), Calendar.getInstance(), Calendar.getInstance(), 0))
 
 
 
@@ -181,7 +179,7 @@ class AddingActivityFragment : Fragment() {
             delay(1000)
             showToast(requireContext(), "Increment Activity Added")
 
-            incrementSingleton.addActivity(IncrementCategory(0, name, description, Calendar.getInstance(), listOf(), 0, unit.toInt()))
+            incrementSingleton.addActivity(IncrementCategory(0, name, description, Calendar.getInstance(), mutableListOf(), 0, unit.toInt()))
         }
     }
 

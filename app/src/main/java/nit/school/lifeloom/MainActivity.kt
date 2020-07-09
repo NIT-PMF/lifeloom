@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             for (increment in incrementList){
                 val date = Calendar.getInstance()
                 date.timeInMillis = increment.date
-                incrementSingleton.addActivity(IncrementCategory(0, increment.name, increment.description, date, listOf(), increment.value, increment.increment))
+                incrementSingleton.addActivity(IncrementCategory(0, increment.name, increment.description, date, mutableListOf(), increment.value, increment.increment))
             }
             for (time in timeList){
                 val date = Calendar.getInstance()
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 date.timeInMillis = time.date
                 startTime.timeInMillis = time.startTime
                 endTime.timeInMillis = time.endTime
-                timePeriodSingleton.addActivity(TimeCategory(0,time.name,time.description, date, listOf(),  startTime, endTime, ((time.endTime - time.startTime) / 1000)))
+                timePeriodSingleton.addActivity(TimeCategory(0,time.name,time.description, date, mutableListOf(),  startTime, endTime, ((time.endTime - time.startTime) / 1000)))
                 Log.i("message",time.toString());
             }
             timeList

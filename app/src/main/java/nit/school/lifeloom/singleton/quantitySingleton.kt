@@ -1,5 +1,6 @@
 package nit.school.lifeloom.singleton
 
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
@@ -33,14 +34,16 @@ object quantitySingleton {
 
     //Vraca indes za update u suprotnom -1
     fun updatePosition(date:Calendar, name:String): Int {
-        for (i in 0..(activityList.size-1)){
-            if(abs(activityList[i]?.date!!.time.getTime() - date.time.getTime()) < 86400
-                    && activityList[i]!!.name == name){
-                return i
+            val formatter: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
+
+            for (i in 0..(activityList.size-1)){
+                if( (formatter.format(date.time) == formatter.format((activityList[i]!!.date.time))) &&
+                        activityList[i]!!.name == name){
+                    return i
+                }
             }
+            return -1
         }
-        return -1
-    }
 
     fun updatePositionValue(position:Int, value:Int){
         activityList[position]?.value = value

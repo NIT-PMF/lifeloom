@@ -32,7 +32,7 @@ object timePeriodSingleton {
     }
     //Vraca indes za update u suprotnom -1
     fun updatePosition(name:String): Int {
-        for (i in 0..activityList.size){
+        for (i in 0..(activityList.size-1)){
             if(activityList[i]?.endTime == activityList[i]?.startTime
                     && activityList[i]!!.name == name){
                 return i
@@ -51,8 +51,33 @@ object timePeriodSingleton {
         return activityList[position]
     }
 
+    fun updateProperty(name:String, nameOfProperty: String,from:String, to:String ){
+        val newProperty = Property(nameOfProperty, from, to)
+        for (time in activityList){
+            if (time?.name == name){
+                time.properties.add(newProperty)
+            }
+        }
+    }
+
+    fun propertyList(name: String): MutableList<Property> {
+        var newPropertyList:MutableList<Property> = mutableListOf()
+        for(time in activityList){
+            if(time?.name == name) {
+                for(property in time.properties){
+                    if (property != null) {
+                        newPropertyList.add(property)
+                    }
+                }
+                break
+            }
+        }
+        return newPropertyList
+    }
+
+
 
 
 }
 
-data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: List<Property?>, val startTime: Calendar, var endTime: Calendar, var value: Long)
+data class TimeCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, val startTime: Calendar, var endTime: Calendar, var value: Long)
