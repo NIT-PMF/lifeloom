@@ -197,12 +197,14 @@ class ActivityTrackerFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun endTimer() {
-        viewModel.addTimeEnd()
+        viewModel.addTimeEnd(
+                binding.simpleChronometer.base)
         viewModel.running = false
 
         binding.timeStart.text = "Timer has not started"
         binding.timeBegin.visibility = View.VISIBLE
         binding.timeEnd.visibility = View.GONE
+
 
         binding.simpleChronometer.stop()
         binding.simpleChronometer.base = SystemClock.elapsedRealtime()

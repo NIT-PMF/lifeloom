@@ -1,6 +1,7 @@
 package nit.school.lifeloom.ui.tracking
 
 import android.content.Context
+import android.os.SystemClock
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
@@ -105,15 +106,15 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
         }
         }
     }
-    fun addTimeEnd(){
+    fun addTimeEnd(time:Long){
         val position = timePeriodSingleton.updatePosition(name)
         if(position != -1) {
             val date =  Calendar.getInstance()
-            timePeriodSingleton.updatePositionValue(position, date)
+            timePeriodSingleton.updatePositionValue(position, date, time)
             runBlocking { withContext(Dispatchers.IO) {
                 timeDb.update((date.timeInMillis - timePeriodSingleton.getActivityByPosition(position)!!.startTime.timeInMillis)/1000,
                         timePeriodSingleton.getActivityByPosition(position)!!.startTime.timeInMillis,
-                        date.timeInMillis, name, timePeriodSingleton.getActivityByPosition(position)!!.date.timeInMillis)
+                        date.timeInMillis, name, SystemClock.elapsedRealtime() - time)
             } }
         }
     }
