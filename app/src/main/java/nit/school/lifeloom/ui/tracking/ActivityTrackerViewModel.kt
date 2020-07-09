@@ -22,6 +22,7 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
 
     var value: Int
     var name = name
+    var state = state
     var running = false
     var baseTime:Long = 0
     var propertyList:MutableList<Property> = mutableListOf()
@@ -152,6 +153,26 @@ class ActivityTrackerViewModel(name: String, state: String, applicationContext: 
         Log.i("message", quantitySingleton.getActivities().toString())
     }
 
+    fun deleteCategory() {
+
+        if(state == "increment") {
+            incrementSingleton.deleteFromActivity(name)
+            runBlocking { withContext(Dispatchers.IO){
+                incrementDb.delete(name)
+            } }
+        }else if(state == "quantity"){
+            quantitySingleton.deleteFromActivity(name)
+            runBlocking { withContext(Dispatchers.IO){
+                quantityDb.delete(name)
+            } }
+        }else{
+            timePeriodSingleton.deleteFromActivity(name)
+            runBlocking { withContext(Dispatchers.IO){
+                timeDb.delete(name)
+            } }
+        }
+
+    }
 
 
 }

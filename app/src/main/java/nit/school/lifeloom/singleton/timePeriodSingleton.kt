@@ -14,7 +14,8 @@ object timePeriodSingleton {
 
     //Vracanje liste s podacima
     fun getActivities(): MutableList<TimeCategory?> {
-        return activityList
+        return activityList.sortedByDescending{ it?.date}.toMutableList()
+
     }
 
     //Vracanje aktivnosti po ID-u
@@ -77,6 +78,9 @@ object timePeriodSingleton {
     }
 
 
+    fun  deleteFromActivity(name:String){
+        activityList = activityList.filter { it?.name !== name}.toMutableList()
+    }
 
 
 }

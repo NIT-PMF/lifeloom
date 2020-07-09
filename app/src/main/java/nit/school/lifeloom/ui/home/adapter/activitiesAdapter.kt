@@ -26,12 +26,20 @@ class ActivitiesAdapter(private val activitesList: List<TimeCategory>, private v
         val info = view.findViewById<TextView>(R.id.activityInfo)
         val show = view.findViewById<ImageView>(R.id.showActivity_iv)
         val chartBtn = view.findViewById<ImageButton>(R.id.chart_btn)
+
         //val card = view.findViewById<CardView>(R.id.card_view)
 
         // Display color name on text view
 
         name.text = activitesList[position].name
-        info.text = activitesList[position].description
+        val diff = activitesList[position].value
+        Log.i("messege", diff.toString())
+        val seconds = diff / 1000
+        val minutes = seconds / 60
+        val hours = minutes / 60
+        val days = hours / 24
+        info.text = "Last capture : " + hours.toString() + ":" + minutes.toString() + ":" + seconds.toString()
+
 
 
         Log.i("string", activitesList[position].date.time.getTime().toString())

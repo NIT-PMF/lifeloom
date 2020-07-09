@@ -62,6 +62,7 @@ object activitiesSingleton {
         activityList.add(Activity)
     }
 
+
 }
 
 data class Activity(val id: Number, val name: String, val description: String)

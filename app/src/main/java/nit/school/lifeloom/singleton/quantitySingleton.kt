@@ -2,6 +2,7 @@ package nit.school.lifeloom.singleton
 
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Locale.filter
 
 /** Sadrzi podatke o aktivnostima **/
 object quantitySingleton {
@@ -13,7 +14,7 @@ object quantitySingleton {
 
     //Vracanje liste s podacima
     fun getActivities(): MutableList<QuantityCategory?> {
-        return activityList
+        return activityList.sortedByDescending{ it?.date}.toMutableList()
     }
 
     //Vracanje aktivnosti po ID-u
@@ -76,6 +77,12 @@ object quantitySingleton {
         }
         return newPropertyList
     }
+
+    fun  deleteFromActivity(name:String){
+        activityList = activityList.filter { it?.name !== name}.toMutableList()
+    }
+
+
 }
 
 data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property>, var value: Int, val unit: String)

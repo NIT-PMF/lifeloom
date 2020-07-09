@@ -145,7 +145,4 @@ class MainActivity : AppCompatActivity() {
          */
     }
 
-    fun deleteActivity(view: View) {
-        showToast(applicationContext, "OVDJE SE BRISE, NEKAKO U FRAGMENTU IMPLEMENTIRATI")
-    }
 }

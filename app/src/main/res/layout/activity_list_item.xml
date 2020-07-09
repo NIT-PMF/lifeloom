@@ -18,7 +18,8 @@
         android:text="Activity Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.063" />
 
     <TextView
         android:id="@+id/activityInfo"
@@ -31,7 +32,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityName" />
+        app:layout_constraintTop_toBottomOf="@+id/activityName"
+        app:layout_constraintVertical_bias="0.72" />
 
     <ImageView
         android:id="@+id/showActivity_iv"

@@ -33,7 +33,7 @@ class IncrementAdapter(private val activitesList: List<IncrementCategory>, priva
         // Display color name on text view
 
         name.text = activitesList[position].name
-        info.text = activitesList[position].description
+        info.text = "Last capture :" + activitesList[position].value.toString()
 
 
         Log.i("string", activitesList[position].date.time.getTime().toString())

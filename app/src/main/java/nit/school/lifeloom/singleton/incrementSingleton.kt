@@ -13,7 +13,7 @@ object incrementSingleton {
 
     //Vracanje liste s podacima
     fun getActivities(): MutableList<IncrementCategory?> {
-        return activityList
+        return activityList.sortedByDescending{ it?.date}.toMutableList()
     }
 
     //Vracanje aktivnosti po ID-u
@@ -76,6 +76,11 @@ object incrementSingleton {
                     }
                 }
                 return newPropertyList }
+
+    fun  deleteFromActivity(name:String){
+
+        activityList = activityList.filter { it?.name !== name}.toMutableList()
+    }
 }
 
 data class IncrementCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property>, var value: Int, val increment: Int)

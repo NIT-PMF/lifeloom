@@ -26,7 +26,6 @@ import java.sql.Time
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
 
@@ -38,9 +37,6 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
 
         //Dodavanje + ukoliko se vrati sa AddingActivityFragment

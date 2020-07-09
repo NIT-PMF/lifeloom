@@ -159,10 +159,18 @@ class ActivityTrackerFragment : Fragment() {
 
         binding.addProperty.setOnClickListener{addProperty()}
         binding.addTolist.setOnClickListener{addPropertyToList()}
+        binding.imageButton.setOnClickListener{deleteCategory()}
 
 
 
         return binding.root
+    }
+
+    @InternalCoroutinesApi
+    private fun deleteCategory() {
+        viewModel.deleteCategory()
+        requireActivity().findNavController(R.id.nav_host_fragment).navigate(R.id.action_activityTrackerFragment_to_navigation_home)
+
     }
 
     @InternalCoroutinesApi
@@ -183,6 +191,7 @@ class ActivityTrackerFragment : Fragment() {
             viewModel.addPropertyToTimeSingelton(name, from, to)
         }
         binding.propertyLayout.visibility = View.GONE
+
 
 
 
