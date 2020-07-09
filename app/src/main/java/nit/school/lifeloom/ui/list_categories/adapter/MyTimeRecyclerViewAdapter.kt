@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
+import kotlinx.android.synthetic.main.fragment_incremental.view.*
 import nit.school.lifeloom.R
 import kotlinx.android.synthetic.main.fragment_time.view.content
 import kotlinx.android.synthetic.main.fragment_time.view.inspect_btn
@@ -44,6 +45,10 @@ class MyTimeRecyclerViewAdapter(
             }
         }
 
+        holder.mchartBtn.setOnClickListener { view ->
+            navController.navigate(R.id.action_navigation_time_to_chartFragment, bundleOf("activity_type" to "time", "category_name" to item.name))
+        }
+
         holder.mButton.setOnClickListener { view ->
             val bundle = bundleOf("activityName" to item.name,
                     Pair("state", "time"),
@@ -61,6 +66,7 @@ class MyTimeRecyclerViewAdapter(
         val mIdView: TextView = mView.item_number
         val mContentView: TextView = mView.content
         val mButton: ImageButton = mView.inspect_btn
+        val mchartBtn = mView.chart_btn2
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

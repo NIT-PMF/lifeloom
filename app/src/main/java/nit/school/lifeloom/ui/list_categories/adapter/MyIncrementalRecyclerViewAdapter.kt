@@ -40,6 +40,9 @@ class MyIncrementalRecyclerViewAdapter(
             }
         }
 
+        holder.mchartBtn.setOnClickListener { view ->
+            navController.navigate(R.id.action_navigation_incremental_to_chartFragment, bundleOf("activity_type" to "increment", "category_name" to item.name))
+        }
 
         holder.mButton.setOnClickListener { view ->
             val bundle = bundleOf("activityName" to item.name,
@@ -61,6 +64,7 @@ class MyIncrementalRecyclerViewAdapter(
         val mIdView: TextView = mView.item_number
         val mContentView: TextView = mView.content
         val mButton: ImageButton = mView.inspect_btn
+        val mchartBtn = mView.chart_btn2
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
