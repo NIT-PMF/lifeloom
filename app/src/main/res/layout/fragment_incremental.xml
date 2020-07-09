@@ -2,21 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/list_category_style"
-    android:layout_margin="4dp">
+    android:layout_height="100dp"
+    android:layout_margin="4dp"
+    android:alpha="0.7"
+    android:background="@drawable/time_bg">
 
     <TextView
         android:id="@+id/item_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/design_default_color_on_primary" />
+        android:text="ItemName"
+        style="@style/item_style_text" />
 
     <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:background="@color/colorPrimaryDark"
+        android:padding="5dp"
+        android:text="ItemDescription"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/design_default_color_on_primary" />
 

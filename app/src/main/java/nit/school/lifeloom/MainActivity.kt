@@ -120,10 +120,12 @@ class MainActivity : AppCompatActivity() {
         val splitList = properties.split(",")
 
         for(element in splitList){
-            if(element != ""){
+            if(element != "" ){
                 val namesplit = element.split(".")
-                val rangeSplit = namesplit[1].split(":")
-                list.add(Property(namesplit[0], rangeSplit[0], rangeSplit[1]))
+                if (namesplit.size > 1) {
+                    val rangeSplit = namesplit[1].split(":")
+                    list.add(Property(namesplit[0], rangeSplit[0], rangeSplit[1]))
+                }
             }
         }
         return list

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/list_category_style"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_margin="4dp"
+    android:alpha="0.7"
+    android:background="@drawable/quantity_bg"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/item_number"
+        style="@style/item_style_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -18,6 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:background="@color/colorPrimaryDark"
+        android:padding="5dp"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/design_default_color_on_primary" />
 

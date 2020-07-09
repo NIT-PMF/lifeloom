@@ -10,9 +10,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import nit.school.lifeloom.R
-
 import kotlinx.android.synthetic.main.fragment_incremental.view.*
-import nit.school.lifeloom.logic.showToast
 import nit.school.lifeloom.singleton.IncrementCategory
 
 class MyIncrementalRecyclerViewAdapter(
