@@ -76,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:minLines="1"
                     android:maxLength="15"
                     android:ems="10"
                     android:hint="Type Category Name"

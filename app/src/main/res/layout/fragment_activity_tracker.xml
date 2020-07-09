@@ -17,8 +17,9 @@
             android:padding="4dp"
             android:text="Activity Tracker Information"
             android:textColor="@color/design_default_color_background"
-            android:textSize="24sp"
+            android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,35 +28,83 @@
             android:id="@+id/activity_name_tv"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:background="#eeecda"
+            android:fontFamily="monospace"
             android:textAlignment="center"
+            android:textAllCaps="true"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_tracker_tv"
+            app:layout_constraintTop_toBottomOf="@+id/divider3"
             tools:text="Activity Name" />
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="28dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/ic_delete"
             android:onClick="deleteActivity"
+            app:layout_constraintBottom_toTopOf="@+id/divider3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_tracker_tv" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:id="@+id/previous_categories_list"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginTop="16dp"
-            android:padding="10dp"
+            android:layout_marginTop="11dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/previous_date_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/add_property">
+
+            <LinearLayout
+                android:id="@+id/categories_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/category_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_weight="1"
+                    android:text="Previus Dates:"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/category_value_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Values:"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/category_property_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="Property:"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_prev_categories"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="0dp"
+                android:padding="10dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/time_layout"
@@ -81,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Odbrojavanje nije pocelo" />
+                android:text="Timer has not started" />
 
             <Chronometer
                 android:id="@+id/simpleChronometer"
@@ -111,7 +160,7 @@
         <LinearLayout
             android:id="@+id/quantity_layout"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
@@ -120,21 +169,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/previous_categories_list">
 
+            <TextView
+                android:id="@+id/quantity_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Description" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/quantity_description"
+                    android:id="@+id/current_value_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="Current Value:" />
 
                 <Space
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
 
                 <TextView
@@ -142,8 +198,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textAlignment="center" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,24 +250,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/previous_categories_list">
 
+            <TextView
+                android:id="@+id/increment_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textAlignment="center" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/increment_description"
-                    android:layout_width="240dp"
+                    android:id="@+id/current_value_increment_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description"
+                    android:layout_weight="0.6"
+                    android:text="Current Value: "
                     android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/increment_value"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="46dp"
+                    android:layout_weight="0.7"
                     android:text="Increment"
-                    android:textAlignment="center" />
+                    android:textAlignment="textEnd" />
 
             </LinearLayout>
 
@@ -238,35 +315,17 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/previous_date_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="31dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:padding="4dp"
-            android:text="Previous Dates"
-            android:textAlignment="viewStart"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/previous_categories_list"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.195"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_name_tv" />
-
         <Button
             android:id="@+id/add_property"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="58dp"
+            android:layout_height="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="89dp"
-            android:background="@drawable/custom_button"
-            android:text="add prorperty"
+            android:background="@drawable/btn_toggle_track"
+            android:text="Add Property"
             android:textColor="#f5f5f5"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/previous_date_tv"
             app:layout_constraintTop_toBottomOf="@+id/activity_name_tv" />
 
         <LinearLayout
@@ -276,8 +335,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
-            android:visibility="gone"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -301,8 +360,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="ex. Success"
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
@@ -323,7 +382,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:text="2" />
 
                 <TextView
@@ -339,17 +398,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:text="5" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/add_tolist"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="add" />
+                android:layout_height="25dp"
+                android:background="@drawable/btn_toggle_track"
+                android:padding="4dp"
+                android:text="Add"
+                android:textColor="@color/design_default_color_background" />
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="350dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:background="#eeecda"
+            app:layout_constraintBottom_toTopOf="@+id/activity_name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_tracker_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

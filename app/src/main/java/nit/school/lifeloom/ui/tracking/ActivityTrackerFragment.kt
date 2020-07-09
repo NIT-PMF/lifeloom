@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_activity_tracker.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import nit.school.lifeloom.MainActivity
 import nit.school.lifeloom.R
@@ -56,7 +54,7 @@ class ActivityTrackerFragment : Fragment() {
         val quantityList = quantitySingleton.getActivities().toList().filter { it?.name == activityName }.take(10) //uzima listu filtrira sa istim imenom i uzima prvih 10
         val timeList = timePeriodSingleton.getActivities().toList().filter { it?.name == activityName }.take(10) //uzima listu filtrira sa istim imenom i uzima prvih 10
 
-        val listRecyclerView = binding.previousCategoriesList
+        val listRecyclerView = binding.recyclerViewPrevCategories
         listRecyclerView.layoutManager = LinearLayoutManager(context)
         listRecyclerView.addItemDecoration(
             DividerItemDecoration(

@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
 
+
         //Dodavanje + ukoliko se vrati sa AddingActivityFragment
         val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
         buttonAdd.visibility = View.VISIBLE
