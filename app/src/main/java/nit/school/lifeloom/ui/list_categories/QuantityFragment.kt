@@ -29,8 +29,9 @@ class QuantityFragment : Fragment() {
         val kategorija_lista = quantitySingleton.getActivities().distinctBy { it?.name }
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        val listQuantityView = view.findViewById<RecyclerView>(R.id.quantity_list)
+        if (listQuantityView is RecyclerView) {
+            with(listQuantityView) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)

@@ -6,10 +6,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.dashboard.DashboardFragment">
+        tools:context=".ui.chartDisplay.ChartDisplayFragment">
 
         <TextView
-            android:id="@+id/text_dashboard"
+            android:id="@+id/text_chart_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
+            app:layout_constraintTop_toBottomOf="@+id/text_chart_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

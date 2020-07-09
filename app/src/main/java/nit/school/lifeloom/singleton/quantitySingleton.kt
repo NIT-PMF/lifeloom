@@ -2,7 +2,6 @@ package nit.school.lifeloom.singleton
 
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.abs
 
 /** Sadrzi podatke o aktivnostima **/
 object quantitySingleton {
@@ -77,8 +76,6 @@ object quantitySingleton {
         }
         return newPropertyList
     }
-
-
 }
 
 data class QuantityCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, var value: Int, val unit: String)

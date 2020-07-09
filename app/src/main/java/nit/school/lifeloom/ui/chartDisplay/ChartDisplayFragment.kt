@@ -1,14 +1,11 @@
-package nit.school.lifeloom.ui.dashboard
+package nit.school.lifeloom.ui.chartDisplay
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
@@ -20,13 +17,11 @@ import com.anychart.enums.HoverMode
 import com.anychart.enums.Position
 import com.anychart.enums.TooltipPositionMode
 import nit.school.lifeloom.R
-import nit.school.lifeloom.databinding.FragmentDashboardBinding
+import nit.school.lifeloom.databinding.FragmentChartDisplayBinding
 
+class ChartDisplayFragment : Fragment() {
 
-class DashboardFragment : Fragment() {
-
-    private lateinit var dashboardViewModel: DashboardViewModel
-    private lateinit var binding: FragmentDashboardBinding
+    private lateinit var binding: FragmentChartDisplayBinding
     private lateinit var anyChartView: AnyChartView
 
     override fun onCreateView(
@@ -34,15 +29,9 @@ class DashboardFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
-
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_chart_display, container, false)
+        val categoryName = arguments?.getString("category_name") ?: "Unknown"
+        binding.textChartName.text = categoryName
 
         anyChartView = binding.anyChartView
 
@@ -52,6 +41,7 @@ class DashboardFragment : Fragment() {
 
         return binding.root
     }
+
 
     private fun setupGraph(cartesian: Cartesian) {
         val data: MutableList<DataEntry> = ArrayList()
@@ -76,7 +66,7 @@ class DashboardFragment : Fragment() {
             .format("\${%Value}{groupsSeparator: }")
 
         cartesian.animation(true)
-        cartesian.title("Top 10 Cosmetic Products by Revenue")
+        cartesian.title("Last 10 days of activity")
 
         cartesian.yScale().minimum(0.0)
 
@@ -85,8 +75,8 @@ class DashboardFragment : Fragment() {
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT)
         cartesian.interactivity().hoverMode(HoverMode.BY_X)
 
-        cartesian.xAxis(0).title("Product")
-        cartesian.yAxis(0).title("Revenue")
+        cartesian.xAxis(0).title("Days")
+        cartesian.yAxis(0).title("Increments")
 
         anyChartView.setChart(cartesian)
     }

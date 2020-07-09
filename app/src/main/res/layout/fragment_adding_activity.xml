@@ -76,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:maxLength="15"
                     android:ems="10"
                     android:hint="Type Category Name"
                     android:inputType="textPersonName" />
@@ -122,6 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:ems="10"
+                    android:text="1"
                     android:hint="Type the unit"
                     android:inputType="textPersonName"
                     android:visibility="gone" />
@@ -131,6 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:maxLength="50"
                     android:ems="10"
                     android:hint="Category Description"
                     android:inputType="textPersonName"

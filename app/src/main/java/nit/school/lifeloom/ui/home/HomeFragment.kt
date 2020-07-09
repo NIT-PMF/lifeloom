@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
         val buttonAdd : ImageButton = (requireActivity() as MainActivity).findViewById(R.id.add_activity_btn)
         buttonAdd.visibility = View.VISIBLE
 
+
         //Postavljanje liste
         val quantity = quantitySingleton.getActivities().toList().distinctBy { it?.name }
         val timePeriod = timePeriodSingleton.getActivities().toList().distinctBy { it?.name }

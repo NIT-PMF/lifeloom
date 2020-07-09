@@ -1,8 +1,6 @@
 package nit.school.lifeloom.ui.adding
 
 import android.os.Bundle
-import android.util.Log
-
 import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,10 +10,8 @@ import android.widget.*
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.button.MaterialButtonToggleGroup
 import kotlinx.coroutines.*
 import nit.school.lifeloom.MainActivity
-
 import nit.school.lifeloom.R
 import nit.school.lifeloom.database.AppDB
 import nit.school.lifeloom.database.dao.IncrementCategoryDao
@@ -28,7 +24,6 @@ import nit.school.lifeloom.databinding.FragmentAddingActivityBinding
 import nit.school.lifeloom.logic.showToast
 import nit.school.lifeloom.singleton.*
 import nit.school.lifeloom.ui.adding.adapter.StandardActivitiesAdapter
-import nit.school.lifeloom.ui.home.adapter.ActivitiesAdapter
 import java.util.*
 
 class AddingActivityFragment : Fragment() {
@@ -156,7 +151,7 @@ class AddingActivityFragment : Fragment() {
             timePeriodSingleton.addActivity(TimeCategory(0, name, description,
                     Calendar.getInstance(), mutableListOf(), Calendar.getInstance(), Calendar.getInstance(), 0))
 
-
+            requireActivity().findNavController(R.id.nav_host_fragment).navigate(R.id.action_addingActivityFragment_to_navigation_home)
 
         }else if(state == "Quantity"){
             val newQuantity = QuantityTable()

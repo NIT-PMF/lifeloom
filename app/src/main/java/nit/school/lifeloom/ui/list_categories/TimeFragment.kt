@@ -29,8 +29,9 @@ class TimeFragment : Fragment() {
         val kategorija_lista = timePeriodSingleton.getActivities().distinctBy { it?.name }
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        val listTimeView = view.findViewById<RecyclerView>(R.id.time_list)
+        if (listTimeView is RecyclerView) {
+            with(listTimeView) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -26,6 +27,7 @@ class IncrementAdapter(private val activitesList: List<IncrementCategory>, priva
         val name = view.findViewById<TextView>(R.id.activityName)
         val info = view.findViewById<TextView>(R.id.activityInfo)
         val show = view.findViewById<ImageView>(R.id.showActivity_iv)
+        val chartBtn = view.findViewById<ImageButton>(R.id.chart_btn)
         //val card = view.findViewById<CardView>(R.id.card_view)
 
         // Display color name on text view
@@ -43,6 +45,10 @@ class IncrementAdapter(private val activitesList: List<IncrementCategory>, priva
                 listDates += listDates + element.date.time.getTime().toString() + ','
                 listValues += listValues + element.value + ','
             }
+        }
+
+        chartBtn.setOnClickListener { view ->
+            navController.navigate(R.id.action_navigation_home_to_chartFragment, bundleOf("activity_type" to "increment", "category_name" to name.text.toString()))
         }
 
         show.setOnClickListener { view ->

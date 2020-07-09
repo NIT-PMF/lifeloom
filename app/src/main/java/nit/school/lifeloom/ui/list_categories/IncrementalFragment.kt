@@ -31,8 +31,9 @@ class IncrementalFragment : Fragment() {
         val kategorija_lista = incrementSingleton.getActivities().distinctBy { it?.name }
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        val listIncrementalView = view.findViewById<RecyclerView>(R.id.incremental_list)
+        if (listIncrementalView is RecyclerView) {
+            with(listIncrementalView) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)

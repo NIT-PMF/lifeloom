@@ -1,7 +1,5 @@
 package nit.school.lifeloom.singleton
 
-import androidx.lifecycle.LiveData
-import java.lang.Math.abs
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,49 +36,46 @@ object incrementSingleton {
     }
 
     //Vraca indes za update u suprotnom -1
-    fun updatePosition(date:Calendar, name:String): Int {
+    fun updatePosition(date: Calendar, name: String): Int {
         val formatter: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
 
-        for (i in 0..(activityList.size-1)){
-            if( (formatter.format(date.time) == formatter.format((activityList[i]!!.date.time))) &&
-                    activityList[i]!!.name == name){
+        for (i in 0..(activityList.size - 1)) {
+            if ((formatter.format(date.time) == formatter.format((activityList[i]!!.date.time))) &&
+                activityList[i]!!.name == name
+            ) {
                 return i
             }
         }
-        return -1
-    }
-
-    fun updatePositionValue(position:Int, value:Int){
-        activityList[position]?.value = value
-    }
-
-    fun updateProperty(name:String, nameOfProperty: String,from:String, to:String ){
-        val newProperty = Property(nameOfProperty, from, to)
-        for (increment in activityList){
-            if (increment?.name == name){
-                increment.properties.add(newProperty)
-            }
+                return -1
         }
-    }
 
-    fun propertyList(name: String): MutableList<Property> {
-        var newPropertyList:MutableList<Property> = mutableListOf()
-        for(increment in activityList){
-            if(increment?.name == name) {
-                for(property in increment.properties){
+            fun updatePositionValue(position: Int, value: Int) {
+                activityList[position]?.value = value
+            }
 
-                        if (property != null) {
-                            newPropertyList.add(property)
-                        }
+            fun updateProperty(name: String, nameOfProperty: String, from: String, to: String) {
+                val newProperty = Property(nameOfProperty, from, to)
+                for (increment in activityList) {
+                    if (increment?.name == name) {
+                        increment.properties.add(newProperty)
+                    }
                 }
-                break
             }
-        }
-        return newPropertyList
-    }
 
+            fun propertyList(name: String): MutableList<Property> {
+                var newPropertyList: MutableList<Property> = mutableListOf()
+                for (increment in activityList) {
+                    if (increment?.name == name) {
+                        for (property in increment.properties) {
 
-
+                            if (property != null) {
+                                newPropertyList.add(property)
+                            }
+                        }
+                        break
+                    }
+                }
+                return newPropertyList }
 }
 
 data class IncrementCategory(val id: Number, val name: String, val description: String, val date: Calendar, val properties: MutableList<Property?>, var value: Int, val increment: Int)
