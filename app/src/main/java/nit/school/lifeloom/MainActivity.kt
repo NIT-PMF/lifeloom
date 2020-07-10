@@ -79,37 +79,43 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getFromDatebase() {
-        runBlocking{withContext(Dispatchers.IO){
-            val timeList = timeDb.getAll()
-            val quantityList = quantityDb.getAll()
-            val incrementList = incrementDb.getAll()
+        if(quantitySingleton.getActivities().isEmpty() && incrementSingleton.getActivities().isEmpty()
+                && timePeriodSingleton.getActivities().isEmpty()) {
 
-            for (quantity in quantityList){
-                val date = Calendar.getInstance()
-                date.timeInMillis = quantity.date
-                val listOfProperty = toMutableList(quantity.properties)
-                quantitySingleton.addActivity(QuantityCategory(0,quantity.name, quantity.description, date, listOfProperty ,quantity.value, quantity.unit))
-            }
-            for (increment in incrementList){
-                val date = Calendar.getInstance()
-                date.timeInMillis = increment.date
-                val listOfProperty = toMutableList(increment.properties)
-                incrementSingleton.addActivity(IncrementCategory(0, increment.name, increment.description, date, listOfProperty, increment.value, increment.increment))
-            }
-            for (time in timeList){
-                val date = Calendar.getInstance()
-                val startTime = Calendar.getInstance()
-                val endTime = Calendar.getInstance()
-                date.timeInMillis = time.date
-                startTime.timeInMillis = time.startTime
-                endTime.timeInMillis = time.endTime
-                val listOfProperty = toMutableList(time.properties)
-                timePeriodSingleton.addActivity(TimeCategory(0,time.name,time.description, date, listOfProperty,  startTime, endTime, ((time.endTime - time.startTime) / 1000)))
-                Log.i("message",time.toString());
-            }
-            timeList
+            runBlocking {
+                withContext(Dispatchers.IO) {
+                    val timeList = timeDb.getAll()
+                    val quantityList = quantityDb.getAll()
+                    val incrementList = incrementDb.getAll()
 
- }}
+                    for (quantity in quantityList) {
+                        val date = Calendar.getInstance()
+                        date.timeInMillis = quantity.date
+                        val listOfProperty = toMutableList(quantity.properties)
+                        quantitySingleton.addActivity(QuantityCategory(0, quantity.name, quantity.description, date, listOfProperty, quantity.value, quantity.unit))
+                    }
+                    for (increment in incrementList) {
+                        val date = Calendar.getInstance()
+                        date.timeInMillis = increment.date
+                        val listOfProperty = toMutableList(increment.properties)
+                        incrementSingleton.addActivity(IncrementCategory(0, increment.name, increment.description, date, listOfProperty, increment.value, increment.increment))
+                    }
+                    for (time in timeList) {
+                        val date = Calendar.getInstance()
+                        val startTime = Calendar.getInstance()
+                        val endTime = Calendar.getInstance()
+                        date.timeInMillis = time.date
+                        startTime.timeInMillis = time.startTime
+                        endTime.timeInMillis = time.endTime
+                        val listOfProperty = toMutableList(time.properties)
+                        timePeriodSingleton.addActivity(TimeCategory(0, time.name, time.description, date, listOfProperty, startTime, endTime, ((time.endTime - time.startTime) / 1000)))
+                        Log.i("message", time.toString());
+                    }
+                    timeList
+
+                }
+            }
+        }
     }
 
     private fun toMutableList(properties: String): MutableList<Property> {
